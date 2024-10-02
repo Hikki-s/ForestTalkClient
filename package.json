@@ -71,5 +71,19 @@
   },
   "nx": {
     "includedScripts": []
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint --edit $1"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "npm run lint"
+    ],
+    "**/*.{ts,tsx,css,scss}": [
+      "npm run format"
+    ]
   }
 }
