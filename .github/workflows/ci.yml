@@ -12,6 +12,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        task: [prettier-check, eslint, stylelint]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -22,16 +26,21 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Run Prettier
-        run: npm run format
-
-      - name: Run ESLint
-        run: npm run lint
-
-      - name: Run StyleLint
-        run: npm run stylelint
+      - name: Run lint task
+        run: |
+          case "${{ matrix.task }}" in
+            prettier-check)
+              npm run format:check
+              ;;
+            eslint)
+              npm run lint
+              ;;
+            stylelint)
+              npm run stylelint
+              ;;
+          esac
 
   build:
     runs-on: ubuntu-latest
@@ -50,7 +59,7 @@ jobs:
         run: npm install
 
       - name: Build Angular project
-        run: npm run build --prod
+        run: npm run build -- --prod
 
       - name: Upload dist as artifact
         uses: actions/upload-artifact@v4
