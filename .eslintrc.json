@@ -1,0 +1,63 @@
+{
+  "root": true,
+    "ignorePatterns": ["!**/*"],
+    "plugins": ["@nx"],
+    "overrides": [
+  {
+    "files": ["*.ts", "*.tsx"],
+    "extends": [
+      "plugin:@nx/typescript",
+      "@tinkoff/eslint-config/app",
+      "@tinkoff/eslint-config-angular"
+    ],
+    "parserOptions": {
+      "project": [
+        "./tsconfig.app.json",
+        "./tsconfig.spec.json"
+      ]
+    },
+    "rules": {}
+  },
+  {
+    "files": ["*.js", "*.jsx"],
+    "extends": ["plugin:@nx/javascript"],
+    "rules": {}
+  },
+  {
+    "files": ["*.ts"],
+    "extends": [
+      "plugin:@nx/angular",
+      "plugin:@angular-eslint/template/process-inline-templates"
+    ],
+    "rules": {
+      "@angular-eslint/directive-selector": [
+        "error",
+        {
+          "type": "attribute",
+          "prefix": "app",
+          "style": "camelCase"
+        }
+      ],
+      "@angular-eslint/component-selector": [
+        "error",
+        {
+          "type": "element",
+          "prefix": "app",
+          "style": "kebab-case"
+        }
+      ]
+    }
+  },
+  {
+    "files": ["*.html"],
+    "parser": "@angular-eslint/template-parser",
+    "extends": [
+      "plugin:@nx/angular-template",
+      "@tinkoff/eslint-config-angular/html-eslint"
+    ],
+    "rules": {
+      "@html-eslint/element-newline": "off"
+    }
+  }
+]
+}
