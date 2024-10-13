@@ -2,6 +2,14 @@
   "root": true,
   "ignorePatterns": ["!**/*"],
   "plugins": ["@nx"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "directory": "./tsconfig.json"
+      }
+    }
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
