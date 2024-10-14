@@ -1,3 +1,88 @@
 {
-
+  "posts": [
+    {
+      "id": 1,
+      "content": "Первый пост с текстом.",
+      "postMedia": [
+        {
+          "type": "image",
+          "url": "http://localhost:3000/images/post1.jpg"
+        }
+      ],
+      "owner": {
+        "id": "1",
+        "ownerName": "Пользователь 1",
+        "avatarUrl": "http://localhost:3000/avatars/user1.jpg"
+      },
+      "isLike": false,
+      "likeCount": 5,
+      "commentCount": 2,
+      "createdAt": "2024-10-11T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "content": "Второй пост с видео.",
+      "postMedia": [
+        {
+          "type": "video",
+          "url": "http://localhost:3000/videos/post2.mp4"
+        }
+      ],
+      "owner": {
+        "id": "2",
+        "ownerName": "Пользователь 2",
+        "avatarUrl": "http://localhost:3000/avatars/user2.jpg"
+      },
+      "isLike": true,
+      "likeCount": 12,
+      "commentCount": 5,
+      "createdAt": "2024-10-10T15:30:00Z"
+    },
+    {
+      "id": 3,
+      "content": "Третий пост без медиа.",
+      "postMedia": [],
+      "owner": {
+        "id": "3",
+        "ownerName": "Пользователь 3",
+        "avatarUrl": "http://localhost:3000/avatars/user3.jpg"
+      },
+      "isLike": true,
+      "likeCount": 3,
+      "commentCount": 1,
+      "createdAt": "2024-10-09T12:15:00Z"
+    }
+  ],
+  "post_comments": [
+    {
+      "id": 1,
+      "commentOwner": {
+        "userId": "1",
+        "username": "Пользователь 1",
+        "avatarUrl": "http://localhost:3000/avatars/user1.jpg"
+      },
+      "content": "Комментарий к первому посту.",
+      "createdAt": "2024-10-11T11:00:00Z"
+    },
+    {
+      "id": 2,
+      "commentOwner": {
+        "userId": "2",
+        "username": "Пользователь 2",
+        "avatarUrl": "http://localhost:3000/avatars/user2.jpg"
+      },
+      "content": "Еще один комментарий к первому посту.",
+      "createdAt": "2024-10-11T12:00:00Z"
+    },
+    {
+      "id": 3,
+      "commentOwner": {
+        "userId": "3",
+        "username": "Пользователь 3",
+        "avatarUrl": "http://localhost:3000/avatars/user3.jpg"
+      },
+      "content": "Комментарий к второму посту.",
+      "createdAt": "2024-10-10T16:00:00Z"
+    }
+  ]
 }

@@ -6,6 +6,7 @@ export interface NewsPost {
   isLike: boolean;
   likeCount: number;
   commentCount: number;
+  comments?: Comment[];
   createdAt: Date;
 }
 
@@ -27,6 +28,12 @@ export interface Comment {
   commentOwner: CommentOwner;
   content: string;
   createdAt: Date;
+}
+
+export interface NewComment {
+  postId: number;
+  userId: number;
+  content: string;
 }
 
 interface CommentOwner {
