@@ -12,6 +12,11 @@ export const userRoutes: Routes = [
     component: UserComponent,
     children: [
       {
+        path: "",
+        pathMatch: "full",
+        redirectTo: ":id",
+      },
+      {
         path: ":id",
         component: UserInfoComponent,
         children: [
@@ -29,11 +34,11 @@ export const userRoutes: Routes = [
             path: "gallery",
             component: UserGalleryComponent,
           },
-          {
-            path: "settings",
-            component: UserSettingsComponent,
-          },
         ],
+      },
+      {
+        path: "settings",
+        component: UserSettingsComponent,
       },
     ],
   },
