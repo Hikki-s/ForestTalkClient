@@ -15,5 +15,15 @@ export const authenticatedRoutes: Routes = [
     path: "friends",
     loadChildren: () =>
       import("../../friends/friends.routes").then((m) => m.friendsRoutes),
-  }
+  },
+  {
+    path: "groups",
+    loadChildren: () =>
+      import("../../groups/groups.routes").then((m) => m.groupsRoutes),
+  },
+  {
+    path: "group",
+    loadChildren: () =>
+      import("../../group/group.routes").then((m) => m.groupRoutes),
+  },
 ];
