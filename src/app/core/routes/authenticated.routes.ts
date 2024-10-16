@@ -30,5 +30,10 @@ export const authenticatedRoutes: Routes = [
     path: "chats",
     loadChildren: () =>
       import("../../chats/chats.routes").then((m) => m.chatRoutes),
+  },
+  {
+    path: "search",
+    loadChildren: () =>
+      import("../../search/search.routes").then((m) => m.searchRoutes),
   }
 ];
