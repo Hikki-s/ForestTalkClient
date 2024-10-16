@@ -8,7 +8,7 @@ export const friendsRoutes: Routes = [
     component: FriendsComponent,
     children: [
       {
-        path: "list",
+        path: "",
         component: FriendsListComponent,
       },
     ],
