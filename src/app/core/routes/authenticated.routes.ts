@@ -35,5 +35,5 @@ export const authenticatedRoutes: Routes = [
     path: "search",
     loadChildren: () =>
       import("../../search/search.routes").then((m) => m.searchRoutes),
-  }
+  },
 ];
