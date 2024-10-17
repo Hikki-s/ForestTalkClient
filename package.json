@@ -8,10 +8,10 @@
     "watch": "nx build --watch --configuration development",
     "test": "nx test",
     "server": "json-server --watch db.json",
-    "format": "prettier --write src/**/*.{ts,html,less}",
-    "format:check": "prettier --check src/**/*.{ts,html,less}",
-    "lint": "eslint --fix src/**/*.{ts,html}",
-    "stylelint": "stylelint --fix src/**/*.less"
+    "format": "prettier --write 'src/**/*.{ts,html,less}'",
+    "format:check": "prettier --check 'src/**/*.{ts,html,less}'",
+    "lint": "eslint --fix 'src/**/*.{ts,html}'",
+    "stylelint": "stylelint --fix 'src/**/*.less'"
   },
   "private": true,
   "dependencies": {
