@@ -3,7 +3,6 @@ import { LayoutComponent } from "@shared/components/layout/layout/layout.compone
 import { AuthedLayoutComponent } from "@shared/components/authed-layout/authed-layout.component";
 import { authenticatedRouteGuard } from "./core/guards/authenticated/authenticated-route.guard";
 import { notAuthenticatedRouteGuard } from "./core/guards/not-authenticated/not-authenticated-route.guard";
-import { NotFoundComponent } from "./errors/not-found/not-found.component";
 
 export const appRoutes: Routes = [
   {
@@ -28,8 +27,11 @@ export const appRoutes: Routes = [
         canActivateChild: [notAuthenticatedRouteGuard],
       },
       {
-        path: "404",
-        component: NotFoundComponent,
+        path: "",
+        loadChildren: () =>
+          import("./errors/errors.routes").then(
+            (m) => m.errorRoutes
+          ),
       },
       {
         path: "**",

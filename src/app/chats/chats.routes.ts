@@ -1,10 +1,10 @@
-import {Routes} from "@angular/router";
-import {ChatsComponent} from "./chats.component";
-import {ChatsListComponent} from "./chats-list/chats-list.component";
+import { Routes } from "@angular/router";
+import { ChatsComponent } from "./chats.component";
+import { ChatsListComponent } from "./chats-list/chats-list.component";
 
 export const chatRoutes: Routes = [
   {
-    path: '',
+    path: "",
     component: ChatsComponent,
     children: [
       {
@@ -14,9 +14,9 @@ export const chatRoutes: Routes = [
           {
             path: ":id",
             component: ChatsComponent,
-          }
-        ]
+          },
+        ],
       },
-    ]
-  }
-]
+    ],
+  },
+];
