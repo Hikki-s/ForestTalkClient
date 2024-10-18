@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
 import { GroupComponent } from "./group.component";
 import { GroupWallComponent } from "./group-wall/group-wall.component";
 import { GroupSettingsComponent } from "./group-settings/group-settings.component";

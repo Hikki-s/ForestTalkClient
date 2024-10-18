@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { InternalServerComponent } from "./internal-server/internal-server.component";
 import { UnavailableComponent } from "./unavailable/unavailable.component";

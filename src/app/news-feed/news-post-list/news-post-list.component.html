@@ -1,1 +1,18 @@
-<p>news-post-list works!</p>
+<div
+  tuiCardLarge
+  tuiAppearance="floating"
+  class="news-feed-container"
+  (scroll)="onScroll()"
+>
+  @if (posts$ | async; as posts) { @for (post of posts; track post.id) {
+  <div tuiCardLarge tuiAppearance="floating">
+    <div class="post-meta">
+      <div tuiChip>{{ post.owner.ownerName }}</div>
+      <div tuiChip>{{ post.createdAt }}</div>
+    </div>
+    <p>{{ post.content }}</p>
+  </div>
+  } @empty {
+  <tui-notification> No posts available. </tui-notification>
+  } }
+</div>

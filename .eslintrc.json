@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["!**/*"],
+  "ignorePatterns": ["!**/*", "src/app/shared/constants/*.ts"],
   "plugins": ["@nx"],
   "settings": {
     "import/resolver": {

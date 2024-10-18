@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
 import { ChatsComponent } from "./chats.component";
 import { ChatsListComponent } from "./chats-list/chats-list.component";
 

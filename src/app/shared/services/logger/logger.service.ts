@@ -16,11 +16,11 @@ export class LoggerService {
   private readonly w: (...args: any[]) => void;
   private readonly e: (...args: any[]) => void;
 
-  constructor(serviceName: string) {
-    this.d = debug(`${serviceName}:debug`);
-    this.i = debug(`${serviceName}:info`);
-    this.w = debug(`${serviceName}:warn`);
-    this.e = debug(`${serviceName}:error`);
+  constructor() {
+    this.d = debug(`api:debug`);
+    this.i = debug(`api:info`);
+    this.w = debug(`api:warn`);
+    this.e = debug(`api:error`);
   }
 
   debug(msg: any) {

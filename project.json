@@ -11,6 +11,9 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "allowedCommonJsDependencies": [
+          "debug"
+        ],
         "baseHref": "/ForestTalkClient/",
         "outputPath": "dist/ForestTalkClient",
         "index": "./src/index.html",
@@ -21,10 +24,15 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "public"
+            "input": "node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
           }
         ],
-        "styles": ["./src/styles.less"],
+        "styles": [
+          "@taiga-ui/core/styles/taiga-ui-theme.less",
+          "@taiga-ui/core/styles/taiga-ui-fonts.less",
+          "src/styles.less"
+        ],
         "scripts": []
       },
       "configurations": {

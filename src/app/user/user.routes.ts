@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
 import { UserComponent } from "./user.component";
 import { UserWallComponent } from "./user-wall/user-wall.component";
 import { UserGalleryComponent } from "./user-gallery/user-gallery.component";
