@@ -5,22 +5,22 @@ import type { Observable } from "rxjs";
 import { webSocket } from "rxjs/webSocket";
 import { filter, map } from "rxjs/operators";
 import type { NewsPost, Comment, NewComment } from "@shared/models/post.model";
-import { API_POSTS } from "@shared/constants/api-urls";
+import { API_URLS } from "@shared/constants/api-urls";
 import { LoggerService } from "@shared/services/logger/logger.service";
 
 @Injectable({
   providedIn: "root",
 })
-export class PostService {
+export class NewsFeedService {
   private readonly http = inject(HttpClient);
   private readonly socket = webSocket("wss://your-websocket-url");
   private readonly logger = inject(LoggerService);
   private readonly postsSubject = new BehaviorSubject<NewsPost[]>([]);
   posts$ = this.postsSubject.asObservable();
 
-  getPosts(offset: number, limit: number): Observable<NewsPost[]> {
+  getFeed(offset: number, limit: number): Observable<NewsPost[]> {
     const params = { offset, limit };
-    return this.http.get<NewsPost[]>(API_POSTS, { params }).pipe(
+    return this.http.get<NewsPost[]>(API_URLS.GET_FEED, { params }).pipe(
       map((posts) => {
         const currentPosts = this.postsSubject.getValue();
         this.postsSubject.next([...currentPosts, ...posts]);
@@ -33,32 +33,10 @@ export class PostService {
     );
   }
 
-  getPost(postId: number): Observable<NewsPost> {
-    return this.http.get<NewsPost>(`${API_POSTS}/${postId}`);
-  }
-
-  getPostUpdates(): Observable<NewsPost[]> {
+  getPostsUpdates(): Observable<NewsPost[]> {
     return this.socket.asObservable().pipe(
       filter((message) => message.action === "update"),
       map((message) => message.post)
-    );
-  }
-
-  likePost(postId: number): void {
-    this.socket.next({ action: "like", postId });
-  }
-
-  commentPost(postId: number, comment: NewComment): void {
-    this.socket.next({ action: "comment", postId, comment });
-  }
-
-  getCommentUpdates(postId: number): Observable<Comment> {
-    return this.socket.asObservable().pipe(
-      filter(
-        (message) =>
-          message.action === "newComment" && message.postId === postId
-      ),
-      map((message) => message.comment)
     );
   }
 
