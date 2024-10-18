@@ -16,7 +16,7 @@ import { NewsFeedService } from "../shared/services/feed/news-feed.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewsPostComponent implements OnInit {
-  post: NewsPost;
+  post: NewsPost | undefined;
 
   private readonly newsFeedService = inject(NewsFeedService);
   private readonly commentService = inject(CommentService);
@@ -25,6 +25,7 @@ export class NewsPostComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
 
   ngOnInit() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const postId = Number(this.route.snapshot.paramMap.get("postId"));
   }
 }

@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
 import { FriendsComponent } from "./friends.component";
 import { FriendsListComponent } from "./friends-list/friends-list.component";
 

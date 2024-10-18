@@ -1,5 +1,5 @@
 import { TestBed } from "@angular/core/testing";
-import { CanActivateFn } from "@angular/router";
+import type { CanActivateFn } from "@angular/router";
 
 import { authenticatedRouteGuard } from "./authenticated-route.guard";
 

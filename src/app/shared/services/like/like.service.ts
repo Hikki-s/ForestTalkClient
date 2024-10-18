@@ -9,7 +9,7 @@ import { LoggerService } from "@shared/services/logger/logger.service";
 })
 export class LikeService {
   private readonly http = inject(HttpClient);
-  private readonly logger = inject(LoggerService); // Используем LoggerService
+  private readonly logger = inject(LoggerService);
 
   addLike(postId: number) {
     return this.http

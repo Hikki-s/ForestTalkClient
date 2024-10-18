@@ -3,8 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { API_URLS } from "@shared/constants/api-urls";
 import type { Comment, NewComment } from "@shared/models/post.model";
 import { catchError, of } from "rxjs";
-import { webSocket } from "rxjs/webSocket";
-import { filter, map } from "rxjs/operators";
 import { LoggerService } from "@shared/services/logger/logger.service";
 
 @Injectable({
@@ -12,7 +10,6 @@ import { LoggerService } from "@shared/services/logger/logger.service";
 })
 export class CommentService {
   private readonly http = inject(HttpClient);
-  private readonly socket = webSocket("wss://your-websocket-url");
   private readonly logger = inject(LoggerService);
 
   getComments(postId: number) {
@@ -37,16 +34,6 @@ export class CommentService {
           return of(null);
         })
       );
-  }
-
-  getCommentUpdates(postId: number) {
-    return this.socket.asObservable().pipe(
-      filter(
-        (message) =>
-          message.action === "newComment" && message.postId === postId
-      ),
-      map((message) => message.comment)
-    );
   }
 
   updateComment(commentId: number, updatedContent: string) {
