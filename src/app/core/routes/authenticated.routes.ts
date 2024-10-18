@@ -1,6 +1,11 @@
-import { Routes } from "@angular/router";
+import type { Routes } from "@angular/router";
 
 export const authenticatedRoutes: Routes = [
+  {
+    path: "",
+    redirectTo: "feed",
+    pathMatch: "full",
+  },
   {
     path: "feed",
     loadChildren: () =>

@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class AuthService {
-  private authedUser = {
+  private readonly authedUser = {
     id: "0",
     role: "admin",
     isAuthenticated: true,

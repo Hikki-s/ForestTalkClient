@@ -29,9 +29,7 @@ export const appRoutes: Routes = [
       {
         path: "",
         loadChildren: () =>
-          import("./errors/errors.routes").then(
-            (m) => m.errorRoutes
-          ),
+          import("./errors/errors.routes").then((m) => m.errorRoutes),
       },
       {
         path: "**",

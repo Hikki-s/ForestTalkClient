@@ -1,4 +1,5 @@
-import { CanActivateFn, Router } from "@angular/router";
+import type { CanActivateFn } from "@angular/router";
+import { Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { AuthService } from "../../../auth/shared/services/auth/auth.service";
 
@@ -10,5 +11,5 @@ export const notAuthenticatedRouteGuard: CanActivateFn = () => {
     return true;
   }
 
-  return router.parseUrl("");
+  return router.parseUrl("/feed");
 };
