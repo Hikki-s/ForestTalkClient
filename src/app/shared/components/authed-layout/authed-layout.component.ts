@@ -3,11 +3,11 @@ import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
 
 @Component({
-  selector: "app-groups",
+  selector: "app-authed-layout",
   standalone: true,
   imports: [CommonModule, RouterOutlet],
-  templateUrl: "./groups.component.html",
-  styleUrl: "./groups.component.less",
+  templateUrl: "./authed-layout.component.html",
+  styleUrl: "./authed-layout.component.less",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GroupsComponent {}
+export class AuthedLayoutComponent {}
