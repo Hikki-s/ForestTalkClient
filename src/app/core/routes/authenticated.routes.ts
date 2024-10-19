@@ -12,7 +12,7 @@ export const authenticatedRoutes: Routes = [
       import("../../news-feed/news-feed.routes").then((m) => m.newsFeedRoutes),
   },
   {
-    path: "user",
+    path: "profile",
     loadChildren: () =>
       import("../../user/user.routes").then((m) => m.userRoutes),
   },

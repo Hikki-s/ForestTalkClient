@@ -1,5 +1,5 @@
 export interface NewsPost {
-  id: number;
+  id: string;
   content: string;
   postMedia?: PostMedia[];
   owner: PostOwner;
@@ -24,15 +24,15 @@ interface PostMedia {
 type MediaType = "image" | "video";
 
 export interface Comment {
-  id: number;
+  id: string;
   commentOwner: CommentOwner;
   content: string;
   createdAt: Date;
 }
 
 export interface NewComment {
-  postId: number;
-  userId: number;
+  postId: string;
+  userId: string;
   content: string;
 }
 

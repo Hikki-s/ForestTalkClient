@@ -6,6 +6,11 @@ import { UserPostComponent } from "./user-post/user-post.component";
 import { UserInfoComponent } from "./user-info/user-info.component";
 import { UserSettingsComponent } from "./user-settings/user-settings.component";
 
+const getRedirectPath = (): string => {
+  const userId = localStorage.getItem("userId");
+  return userId ? `${userId}` : "";
+};
+
 export const userRoutes: Routes = [
   {
     path: "",
@@ -14,18 +19,23 @@ export const userRoutes: Routes = [
       {
         path: "",
         pathMatch: "full",
-        redirectTo: ":id",
+        redirectTo: getRedirectPath,
       },
       {
         path: ":id",
         component: UserInfoComponent,
         children: [
           {
+            path: "",
+            pathMatch: "full",
+            redirectTo: "wall",
+          },
+          {
             path: "wall",
             component: UserWallComponent,
             children: [
               {
-                path: "post/:id",
+                path: ":postId",
                 component: UserPostComponent,
               },
             ],
@@ -37,7 +47,7 @@ export const userRoutes: Routes = [
         ],
       },
       {
-        path: "settings",
+        path: ":id/settings",
         component: UserSettingsComponent,
       },
     ],

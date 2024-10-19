@@ -17,21 +17,28 @@ export const groupRoutes: Routes = [
       },
       {
         path: ":id",
-        component: GroupWallComponent,
+        component: GroupInfoComponent,
         children: [
           {
-            path: "settings",
-            component: GroupSettingsComponent,
+            path: "",
+            pathMatch: "full",
+            redirectTo: "wall",
           },
           {
-            path: "info",
-            component: GroupInfoComponent,
-          },
-          {
-            path: ":postId",
-            component: GroupPostComponent,
+            path: "wall",
+            component: GroupWallComponent,
+            children: [
+              {
+                path: ":postId",
+                component: GroupPostComponent,
+              },
+            ],
           },
         ],
+      },
+      {
+        path: ":id/settings",
+        component: GroupSettingsComponent,
       },
     ],
   },
