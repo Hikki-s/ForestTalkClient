@@ -1,1 +1,34 @@
-<p>register works!</p>
+<form [formGroup]="registrationForm">
+  <tui-input formControlName="email" [tuiTextfieldCleaner]="true">
+    Адрес электронной почты
+    <span class="tui-required"></span>
+    <input
+      autocomplete="email"
+      placeholder="mail@mail.ru"
+      tuiTextfield
+      type="email"
+    />
+  </tui-input>
+  <tui-error
+    formControlName="email"
+    [error]="[] | tuiFieldError | async"
+  ></tui-error>
+
+  <tui-input-password formControlName="password" class="tui-space_top-2">
+    Введите пароль
+    <input placeholder="••••••••••" tuiTextfield type="password" />
+  </tui-input-password>
+  <tui-error
+    formControlName="password"
+    [error]="[] | tuiFieldError | async"
+  ></tui-error>
+
+  <tui-input-password formControlName="passwordRepeat" class="tui-space_top-2">
+    Подтвердите пароль
+    <input placeholder="••••••••••" tuiTextfield type="password" />
+  </tui-input-password>
+  <tui-error
+    formControlName="passwordRepeat"
+    [error]="[] | tuiFieldError | async"
+  ></tui-error>
+</form>
