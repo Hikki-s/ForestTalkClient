@@ -2,7 +2,7 @@ import type { Routes } from "@angular/router";
 import { LayoutComponent } from "@shared/components/layout/layout/layout.component";
 import { AuthedLayoutComponent } from "@shared/components/authed-layout/authed-layout.component";
 import { authenticatedRouteGuard } from "./core/guards/authenticated/authenticated-route.guard";
-import { notAuthenticatedRouteGuard } from "./core/guards/not-authenticated/not-authenticated-route.guard";
+// import { notAuthenticatedRouteGuard } from "./core/guards/not-authenticated/not-authenticated-route.guard";
 
 export const appRoutes: Routes = [
   {
@@ -24,7 +24,7 @@ export const appRoutes: Routes = [
           import("./core/routes/not-authenticated.routes").then(
             (m) => m.notAuthenticatedRoutes
           ),
-        canActivateChild: [notAuthenticatedRouteGuard],
+        // canActivateChild: [notAuthenticatedRouteGuard],
       },
       {
         path: "",

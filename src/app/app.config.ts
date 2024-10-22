@@ -1,10 +1,11 @@
 import { NG_EVENT_PLUGINS } from "@taiga-ui/event-plugins";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import type { ApplicationConfig } from "@angular/core";
+import {ApplicationConfig, importProvidersFrom} from "@angular/core";
 import { provideZoneChangeDetection } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { provideHttpClient } from "@angular/common/http";
 import { appRoutes } from "./app.routes";
+import {TuiRootModule} from "@taiga-ui/core";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     NG_EVENT_PLUGINS,
     provideHttpClient(),
+    importProvidersFrom(TuiRootModule),
   ],
 };
