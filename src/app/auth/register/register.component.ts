@@ -9,14 +9,26 @@ import {
 import {
   TUI_VALIDATION_ERRORS,
   TuiFieldErrorPipeModule,
+  TuiInputDateModule,
   TuiInputModule,
   TuiInputPasswordModule,
+  TuiStepperModule,
+  TuiTextareaModule,
 } from "@taiga-ui/kit";
 import { interval, map, scan, startWith } from "rxjs";
-import { tuiIsFalsy } from "@taiga-ui/cdk";
-import { TuiErrorModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
+import {
+  TuiDay,
+  tuiIsFalsy,
+  tuiMarkControlAsTouchedAndValidate,
+} from "@taiga-ui/cdk";
+import {
+  TuiButtonModule,
+  TuiErrorModule,
+  TuiTextfieldControllerModule,
+} from "@taiga-ui/core";
 import { passwordValidator } from "@shared/validators/password/password.validator";
 import { confirmPasswordValidator } from "@shared/validators/confirm-password/confirm-password.validator";
+import { ageValidator } from "@shared/validators/age/age.validator";
 
 @Component({
   selector: "app-register",
@@ -29,6 +41,10 @@ import { confirmPasswordValidator } from "@shared/validators/confirm-password/co
     TuiErrorModule,
     TuiFieldErrorPipeModule,
     TuiInputPasswordModule,
+    TuiStepperModule,
+    TuiTextareaModule,
+    TuiInputDateModule,
+    TuiButtonModule,
   ],
   templateUrl: "./register.component.html",
   styleUrl: "./register.component.less",
@@ -53,28 +69,77 @@ import { confirmPasswordValidator } from "@shared/validators/confirm-password/co
           startWith("Неверный формат пароля")
         ),
         passwordsDoNotMatch: "Пароли не совпадают",
+        underage: "Минимальный возраст регистрации - 14 лет!",
+        overage: "Минимальный возраст регистрации - 120 лет!",
       },
     },
   ],
 })
 export class RegisterComponent {
+  currentRegistrationStep = 0;
+
+  private nextStep() {
+    if (this.currentRegistrationStep < 1) {
+      this.currentRegistrationStep++;
+    }
+  }
+
+  prevStep() {
+    if (this.currentRegistrationStep > 0) {
+      this.currentRegistrationStep--;
+    }
+  }
+
   readonly registrationForm = new FormGroup({
-    email: new FormControl<string>("", {
-      nonNullable: true,
-      validators: [Validators.required, Validators.email],
+    first_step: new FormGroup({
+      login: new FormControl<string>("", {
+        nonNullable: true,
+        validators: [Validators.required, Validators.email],
+      }),
+      password: new FormControl<string>("", {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.maxLength(25),
+          Validators.minLength(8),
+          passwordValidator,
+        ],
+      }),
+      confirmPassword: new FormControl<string>("", {
+        nonNullable: true,
+        validators: [confirmPasswordValidator],
+      }),
     }),
-    password: new FormControl<string>("", {
+
+    firstName: new FormControl<string>("", {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.maxLength(25),
-        Validators.minLength(8),
-        passwordValidator,
-      ],
+      validators: [Validators.required],
     }),
-    passwordRepeat: new FormControl<string>("", {
+    lastName: new FormControl<string>("", {
       nonNullable: true,
-      validators: [Validators.required, confirmPasswordValidator("password")],
+      validators: [Validators.required],
     }),
+    patronymic: new FormControl<string>(""),
+    birth_date: new FormControl<TuiDay>(
+      TuiDay.currentLocal().append({ year: -14 }),
+      {
+        nonNullable: true,
+        validators: [Validators.required, ageValidator],
+      }
+    ),
+    bio: new FormControl<string>(""),
   });
+
+  validFirstStep() {
+    tuiMarkControlAsTouchedAndValidate(
+      this.registrationForm.controls.first_step
+    );
+    if (this.registrationForm.controls.first_step.valid) {
+      this.nextStep();
+    }
+  }
+
+  submit() {
+    console.log(this.registrationForm.value);
+  }
 }
