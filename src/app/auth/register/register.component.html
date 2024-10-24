@@ -42,7 +42,7 @@
           <input placeholder="••••••••••" tuiTextfield type="password" />
         </tui-input-password>
         <tui-error
-          formControlName="confirmPassword"
+          formControlName="registrationForm.controls.firstStep"
           [error]="[] | tuiFieldError | async"
         ></tui-error>
       </div>
@@ -51,7 +51,7 @@
         tuiButton
         type="button"
         [disabled]="!registrationForm.controls.firstStep.valid"
-        (click)="validFirstStep()"
+        (click)="nextStep()"
       >
         Далее
       </button>

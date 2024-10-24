@@ -16,11 +16,7 @@ import {
   TuiTextareaModule,
 } from "@taiga-ui/kit";
 import { interval, map, scan, startWith } from "rxjs";
-import {
-  TuiDay,
-  tuiIsFalsy,
-  tuiMarkControlAsTouchedAndValidate,
-} from "@taiga-ui/cdk";
+import { TuiDay, tuiIsFalsy } from "@taiga-ui/cdk";
 import {
   TuiButtonModule,
   TuiErrorModule,
@@ -29,6 +25,7 @@ import {
 import { passwordValidator } from "@shared/validators/password/password.validator";
 import { confirmPasswordValidator } from "@shared/validators/confirm-password/confirm-password.validator";
 import { ageValidator } from "@shared/validators/age/age.validator";
+import { emailValidator } from "@shared/validators/email/email.validator";
 
 @Component({
   selector: "app-register",
@@ -54,7 +51,7 @@ import { ageValidator } from "@shared/validators/age/age.validator";
       provide: TUI_VALIDATION_ERRORS,
       useValue: {
         required: "Поле обязательно для заполнения",
-        email: "Неверный формат электронной почты",
+        invalidEmail: "Неверный формат электронной почты",
         maxlength: ({ requiredLength }: { requiredLength: string }) =>
           `Максимальная длина — ${requiredLength} символов`,
         minlength: ({ requiredLength }: { requiredLength: string }) =>
@@ -79,25 +76,27 @@ export class RegisterComponent {
   currentRegistrationStep = 0;
 
   readonly registrationForm = new FormGroup({
-    firstStep: new FormGroup({
-      login: new FormControl<string>("", {
-        nonNullable: true,
-        validators: [Validators.required, Validators.email],
-      }),
-      password: new FormControl<string>("", {
-        nonNullable: true,
-        validators: [
-          Validators.required,
-          Validators.maxLength(25),
-          Validators.minLength(8),
-          passwordValidator,
-        ],
-      }),
-      confirmPassword: new FormControl<string>("", {
-        nonNullable: true,
-        validators: [confirmPasswordValidator],
-      }),
-    }),
+    firstStep: new FormGroup(
+      {
+        login: new FormControl<string>("", {
+          nonNullable: true,
+          validators: [Validators.required, emailValidator],
+        }),
+        password: new FormControl<string>("", {
+          nonNullable: true,
+          validators: [
+            Validators.required,
+            Validators.maxLength(25),
+            Validators.minLength(8),
+            passwordValidator,
+          ],
+        }),
+        confirmPassword: new FormControl<string>("", {
+          nonNullable: true,
+        }),
+      },
+      { validators: [confirmPasswordValidator] }
+    ),
 
     firstName: new FormControl<string>("", {
       nonNullable: true,
@@ -118,7 +117,7 @@ export class RegisterComponent {
     bio: new FormControl<string>(""),
   });
 
-  private nextStep() {
+  nextStep() {
     if (this.currentRegistrationStep < 1) {
       this.currentRegistrationStep++;
     }
@@ -127,15 +126,6 @@ export class RegisterComponent {
   prevStep() {
     if (this.currentRegistrationStep > 0) {
       this.currentRegistrationStep--;
-    }
-  }
-
-  validFirstStep() {
-    tuiMarkControlAsTouchedAndValidate(
-      this.registrationForm.controls.firstStep
-    );
-    if (this.registrationForm.controls.firstStep.valid) {
-      this.nextStep();
     }
   }
 
