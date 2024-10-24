@@ -1,1 +1,108 @@
-<p>register works!</p>
+<div class="tui-container">
+  <div class="stepper">
+    <tui-stepper [activeItemIndex]="currentRegistrationStep">
+      <button [disabled]="true" tuiStep>Регистрационные данные</button>
+      <button tuiStep [disabled]="true">Личная информация</button>
+    </tui-stepper>
+  </div>
+
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
+    @if (currentRegistrationStep === 0) {
+    <ng-container>
+      <div formGroupName="firstStep">
+        <tui-input formControlName="login" [tuiTextfieldCleaner]="true">
+          Адрес электронной почты
+          <span class="tui-required"></span>
+          <input
+            autocomplete="email"
+            placeholder="mail@mail.ru"
+            tuiTextfield
+            type="email"
+          />
+        </tui-input>
+        <tui-error
+          formControlName="login"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+
+        <tui-input-password formControlName="password" class="tui-space_top-2">
+          Введите пароль
+          <input placeholder="••••••••••" tuiTextfield type="password" />
+        </tui-input-password>
+        <tui-error
+          formControlName="password"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+
+        <tui-input-password
+          formControlName="confirmPassword"
+          class="tui-space_top-2"
+        >
+          Подтвердите пароль
+          <input placeholder="••••••••••" tuiTextfield type="password" />
+        </tui-input-password>
+        <tui-error
+          formControlName="confirmPassword"
+          [error]="[] | tuiFieldError | async"
+        ></tui-error>
+      </div>
+
+      <button
+        tuiButton
+        type="button"
+        [disabled]="!registrationForm.controls.firstStep.valid"
+        (click)="validFirstStep()"
+      >
+        Далее
+      </button>
+    </ng-container>
+    } @else if (currentRegistrationStep === 1) {
+    <ng-container>
+      <tui-input formControlName="lastName">
+        Фамилия
+        <input tuiTextfield type="text" />
+      </tui-input>
+      <tui-error
+        formControlName="lastName"
+        [error]="[] | tuiFieldError | async"
+      ></tui-error>
+
+      <tui-input formControlName="firstName">
+        Имя
+        <input tuiTextfield type="text" />
+      </tui-input>
+      <tui-error
+        formControlName="firstName"
+        [error]="[] | tuiFieldError | async"
+      ></tui-error>
+
+      <tui-input formControlName="patronymic">
+        Отчество
+        <input tuiTextfield type="text" />
+      </tui-input>
+
+      <tui-input-date formControlName="birthDate">
+        Дата Рождения
+      </tui-input-date>
+      <tui-error
+        formControlName="birthDate"
+        [error]="[] | tuiFieldError | async"
+      ></tui-error>
+
+      <tui-textarea class="b-form" formControlName="bio">
+        О себе
+        <textarea
+          placeholder="Расскажите немного о себе"
+          tuiTextfield
+        ></textarea>
+      </tui-textarea>
+
+      <button tuiButton type="button" (click)="prevStep()">Назад</button>
+
+      <button tuiButton type="submit" [disabled]="!registrationForm.valid">
+        Зарегистрироваться
+      </button>
+    </ng-container>
+    }
+  </form>
+</div>
