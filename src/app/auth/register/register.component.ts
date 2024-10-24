@@ -78,20 +78,8 @@ import { ageValidator } from "@shared/validators/age/age.validator";
 export class RegisterComponent {
   currentRegistrationStep = 0;
 
-  private nextStep() {
-    if (this.currentRegistrationStep < 1) {
-      this.currentRegistrationStep++;
-    }
-  }
-
-  prevStep() {
-    if (this.currentRegistrationStep > 0) {
-      this.currentRegistrationStep--;
-    }
-  }
-
   readonly registrationForm = new FormGroup({
-    first_step: new FormGroup({
+    firstStep: new FormGroup({
       login: new FormControl<string>("", {
         nonNullable: true,
         validators: [Validators.required, Validators.email],
@@ -120,7 +108,7 @@ export class RegisterComponent {
       validators: [Validators.required],
     }),
     patronymic: new FormControl<string>(""),
-    birth_date: new FormControl<TuiDay>(
+    birthDate: new FormControl<TuiDay>(
       TuiDay.currentLocal().append({ year: -14 }),
       {
         nonNullable: true,
@@ -130,16 +118,28 @@ export class RegisterComponent {
     bio: new FormControl<string>(""),
   });
 
+  private nextStep() {
+    if (this.currentRegistrationStep < 1) {
+      this.currentRegistrationStep++;
+    }
+  }
+
+  prevStep() {
+    if (this.currentRegistrationStep > 0) {
+      this.currentRegistrationStep--;
+    }
+  }
+
   validFirstStep() {
     tuiMarkControlAsTouchedAndValidate(
-      this.registrationForm.controls.first_step
+      this.registrationForm.controls.firstStep
     );
-    if (this.registrationForm.controls.first_step.valid) {
+    if (this.registrationForm.controls.firstStep.valid) {
       this.nextStep();
     }
   }
 
   submit() {
-    console.log(this.registrationForm.value);
+    return null;
   }
 }

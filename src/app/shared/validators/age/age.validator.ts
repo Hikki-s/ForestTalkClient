@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from "@angular/forms";
+import type { AbstractControl, ValidationErrors } from "@angular/forms";
 import { TuiDay } from "@taiga-ui/cdk";
 
 export const ageValidator = (
