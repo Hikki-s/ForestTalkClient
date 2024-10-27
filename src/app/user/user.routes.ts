@@ -16,6 +16,10 @@ export const userRoutes: Routes = [
     redirectTo: getRedirectPath,
   },
   {
+    path: "settings",
+    component: UserSettingsComponent,
+  },
+  {
     path: ":id",
     component: UserComponent,
     children: [
@@ -28,9 +32,5 @@ export const userRoutes: Routes = [
   {
     path: ":id/gallery",
     component: UserGalleryComponent,
-  },
-  {
-    path: ":id/settings",
-    component: UserSettingsComponent,
   },
 ];

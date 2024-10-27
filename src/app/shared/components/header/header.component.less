@@ -4,9 +4,40 @@ header {
   justify-content: space-between;
   height: 2.1875rem;
 
-  .logo {
+  .header-left {
+    display: flex;
+    align-items: center;
     height: 100%;
-    object-fit: contain;
+    gap: 20px;
+
+    .logo {
+      height: 80%;
+      object-fit: contain;
+    }
+    .input {
+      width: 280px;
+      --tui-primary: rgba(252, 92, 56, 0.8);
+    }
+    .bell {
+      color: rgba(27, 31, 59, 0.5);
+      aspect-ratio: 1 / 1;
+      height: 140%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transition: background-color 0.5s ease, box-shadow 0.5s ease;
+
+      lucide-angular {
+        height: 28px;
+      }
+
+      &:hover {
+        background-color: rgba(252, 92, 56, 0.8);
+        box-shadow: 0 0 18px rgba(252, 92, 56, 1);
+        color: rgba(27, 31, 59, 0.8);
+      }
+    }
   }
 
   .mini-profile-container {
@@ -16,6 +47,8 @@ header {
     gap: 4px;
     cursor: pointer;
     border-radius: 1.5rem;
+    position: relative;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
 
     .avatar {
       display: flex;
@@ -31,17 +64,82 @@ header {
 
     .chevron-down {
       height: 1.25rem;
-      color: #9f9f9f;
+      color: rgba(27, 31, 59, 0.5);
+      aspect-ratio: 1 / 1;
+      margin-right: 11px;
+      transition: color 0.5s ease;
+    }
+
+    &:hover {
+      background-color: rgba(252, 92, 56, 0.8);
+      box-shadow: 0 0 18px rgba(252, 92, 56, 1);
+
+      .chevron-down {
+        color: rgba(27, 31, 59, 0.8);
+      }
+    }
+
+    &.hover {
+      background-color: rgba(252, 92, 56, 0.8);
+      box-shadow: 0 0 18px rgba(252, 92, 56, 1);
+
+      .chevron-down {
+        color: rgba(27, 31, 59, 0.8);
+      }
     }
   }
 }
 
-.mini-profile-container {
-  position: relative;
-  transition: background-color 0.5s ease, box-shadow 0.5s ease;
+.dropdown {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+
+  .dropdown-action {
+    cursor: pointer;
+    height: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 21.86px;
+    text-align: left;
+    color: #191c30;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .mini-profile {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .avatar {
+    display: flex;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: #dadada;
+    color: #9f9f9f;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .log-out {
+    height: 25px;
+    color: rgba(67, 112, 146, 1);
+  }
+  .settings {
+    height: 25px;
+    color: rgba(67, 112, 146, 1);
+  }
 }
 
-.mini-profile-container:hover {
-  background-color: rgba(255, 165, 0, 0.4);
-  box-shadow: 0 0 0.625rem rgba(255, 165, 0, 0.8);
+tui-dropdown[data-appearance="round"] {
+  border-radius: 30px;
+  z-index: 1;
 }
