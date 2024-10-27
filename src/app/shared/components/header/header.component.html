@@ -1,10 +1,11 @@
 <header>
   <div class="header-left">
-    <img
-      [src]="'assets/shared/icons/dark_main_logo.svg' | tuiIcon"
-      alt="Логотип"
-      class="logo"
-    />
+    <a [routerLink]="['/feed']" class="logo-container">
+      <img
+        [src]="'assets/shared/icons/dark_main_logo.svg' | tuiIcon"
+        alt="Логотип"
+        class="logo"
+    /></a>
     <tui-input
       [tuiTextfieldCleaner]="true"
       [tuiTextfieldLabelOutside]="true"
@@ -54,7 +55,11 @@
           }
           <h2>{{ userFullName }}</h2>
         </div>
-        <a tuiLink [routerLink]="['/profile', 'settings']" (click)="toggleDropdown()">
+        <a
+          tuiLink
+          [routerLink]="['/profile', 'settings']"
+          (click)="toggleDropdown()"
+        >
           <div class="dropdown-action">
             <lucide-angular
               [img]="Settings"
