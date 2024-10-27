@@ -6,7 +6,7 @@ import { Injectable } from "@angular/core";
 export class AuthService {
   private readonly authedUser = {
     id: "0",
-    role: "admin",
+    role: undefined,
     isAuthenticated: true,
   };
 

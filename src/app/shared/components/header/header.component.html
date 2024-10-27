@@ -1,1 +1,15 @@
-<header>header works!</header>
+<header>
+  <img
+    [src]="'assets/shared/icons/dark_main_logo.svg' | tuiIcon"
+    alt="Логотип"
+    class="logo"
+  />
+  <div class="mini-profile-container">
+    @if (avatarUrl) {
+    <img [src]="avatarUrl | tuiIcon" alt="Аватар" class="avatar" />
+    } @else {
+    <lucide-angular [img]="User" class="avatar" />
+    }
+    <lucide-angular [img]="ChevronDown" size="20" class="chevron-down" />
+  </div>
+</header>

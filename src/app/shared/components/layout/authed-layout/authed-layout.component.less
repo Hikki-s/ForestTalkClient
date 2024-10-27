@@ -2,7 +2,30 @@
   min-height: 100vh;
 }
 
+.header-container {
+  display: flex;
+  margin-bottom: 1.875rem;
+  align-items: center;
+  height: 4.375rem;
+  min-width: 47.8125rem;
+  background-color: #fff;
+  border-radius: 0 0 1.875rem 1.875rem;
+}
+
+.app-header-container,
 .main-container {
-  width: 1200px;
+  width: 75rem;
+  min-width: 43.75rem;
   margin: 0 auto;
+  padding: 0 1.875rem;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 12.5rem 1fr;
+}
+
+app-sidebar,
+router-outlet {
+  display: contents;
 }
