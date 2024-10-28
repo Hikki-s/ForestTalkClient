@@ -1,1 +1,20 @@
-<p>user-settings works!</p>
+<h2 class="form-title">Общее</h2>
+<form class="b-form">
+    <div class="form-container">
+        <div *ngFor="let field of fields" class="form-row">
+            <span class="label">{{ field.label }}</span>
+            <tui-input
+                    [formControlName]="field.controlName"
+                    tuiTextfieldSize="m"
+                    [tuiTextfieldCleaner]="true"
+                    class="input no-border"
+            >
+                {{ field.placeholder }}
+                <input tuiTextfield />
+            </tui-input>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button tuiButton appearance="primary" size="l" class="custom-styles-button" style="font-size: 14px">Сохранить настройки</button>
+    </div>
+</form>
