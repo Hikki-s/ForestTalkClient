@@ -11,4 +11,4 @@ export type TUserRegistrationValues = Readonly<{
 
 export type TRegistrationResponse = Readonly<{
   message: string;
-}>
+}>;

@@ -17,6 +17,5 @@ import { TuiIconModule } from "@taiga-ui/experimental";
       useValue: of(TUI_RUSSIAN_LANGUAGE),
     },
   ],
-
 })
 export class AppComponent {}
