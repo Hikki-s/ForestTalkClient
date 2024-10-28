@@ -1,0 +1,155 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2.1875rem;
+  max-width: 100%;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 1.25rem;
+
+    .logo-container {
+      display: flex;
+      height: 100%;
+      align-items: center;
+    }
+
+    .logo {
+      height: 70%;
+      object-fit: contain;
+    }
+
+    .input {
+      --tui-primary: rgba(252, 92, 56, 0.8);
+      width: 17.5rem;
+    }
+
+    .bell {
+      display: flex;
+      color: rgba(27, 31, 59, 0.5);
+      aspect-ratio: 1 / 1;
+      height: 140%;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transition: background-color 0.5s ease, box-shadow 0.5s ease;
+
+      lucide-angular {
+        height: 1.75rem;
+      }
+
+      &:hover {
+        background-color: rgba(252, 92, 56, 0.8);
+        box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
+        color: rgba(27, 31, 59, 0.8);
+      }
+    }
+  }
+
+  .mini-profile-container {
+    position: relative;
+    display: flex;
+    height: 140%;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    border-radius: 1.5rem;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+
+    .avatar {
+      display: flex;
+      height: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      border-radius: 50%;
+      background-color: #dadada;
+      color: #9f9f9f;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chevron-down {
+      height: 1.25rem;
+      color: rgba(27, 31, 59, 0.5);
+      aspect-ratio: 1 / 1;
+      margin-right: 0.6875rem;
+      transition: color 0.5s ease;
+    }
+
+    &:hover {
+      background-color: rgba(252, 92, 56, 0.8);
+      box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
+
+      .chevron-down {
+        color: rgba(27, 31, 59, 0.8);
+      }
+    }
+
+    &.hover {
+      background-color: rgba(252, 92, 56, 0.8);
+      box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
+
+      .chevron-down {
+        color: rgba(27, 31, 59, 0.8);
+      }
+    }
+  }
+}
+
+.dropdown {
+  display: flex;
+  width: 18.75rem;
+  flex-direction: column;
+  gap: 0.9375rem;
+  padding: 1.25rem;
+
+  .dropdown-action {
+    display: flex;
+    cursor: pointer;
+    height: 1.875rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.36625rem;
+    text-align: left;
+    color: #191c30;
+    align-items: center;
+    gap: 0.9375rem;
+  }
+
+  .mini-profile {
+    display: flex;
+    height: 3.75rem;
+    align-items: center;
+    gap: 0.9375rem;
+  }
+
+  .avatar {
+    display: flex;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: #dadada;
+    color: #9f9f9f;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .log-out {
+    height: 1.5625rem;
+    color: rgba(67, 112, 146, 1);
+  }
+
+  .settings {
+    height: 1.5625rem;
+    color: rgba(67, 112, 146, 1);
+  }
+}
+
+tui-dropdown[data-appearance="round"] {
+  z-index: 1;
+  border-radius: 1.875rem;
+}

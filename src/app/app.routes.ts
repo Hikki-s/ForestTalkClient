@@ -1,13 +1,12 @@
 import type { Routes } from "@angular/router";
-import { LayoutComponent } from "@shared/components/layout/layout/layout.component";
-import { AuthedLayoutComponent } from "@shared/components/authed-layout/authed-layout.component";
+import { NotAuthedLayoutComponent } from "@shared/components/layout/not-authed-layout/not-authed-layout.component";
+import { AuthedLayoutComponent } from "@shared/components/layout/authed-layout/authed-layout.component";
 import { authenticatedRouteGuard } from "./core/guards/authenticated/authenticated-route.guard";
 // import { notAuthenticatedRouteGuard } from "./core/guards/not-authenticated/not-authenticated-route.guard";
 
 export const appRoutes: Routes = [
   {
     path: "",
-    component: LayoutComponent,
     children: [
       {
         path: "",
@@ -20,6 +19,7 @@ export const appRoutes: Routes = [
       },
       {
         path: "",
+        component: NotAuthedLayoutComponent,
         loadChildren: () =>
           import("./core/routes/not-authenticated.routes").then(
             (m) => m.notAuthenticatedRoutes

@@ -1,0 +1,36 @@
+.layout {
+  height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  margin-bottom: 1.875rem;
+  min-width: 47.8125rem;
+}
+
+.header-container {
+  display: flex;
+  margin-bottom: 1.875rem;
+  align-items: center;
+  height: 4.375rem;
+  min-width: 47.8125rem;
+  background-color: #fff;
+  border-radius: 0 0 1.875rem 1.875rem;
+}
+
+.app-header-container,
+.app-main-container {
+  max-width: 75rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.875rem;
+}
+
+.app-main-container {
+  display: flex;
+}
+
+app-sidebar,
+router-outlet {
+  display: contents;
+}

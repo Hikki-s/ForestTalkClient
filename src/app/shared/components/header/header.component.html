@@ -1,1 +1,86 @@
-<header>header works!</header>
+<header>
+  <div class="header-left">
+    <a [routerLink]="['/feed']" class="logo-container">
+      <img
+        [src]="'app/shared/icons/dark_main_logo.svg' | tuiIcon"
+        alt="Логотип"
+        class="logo"
+      />
+    </a>
+    <tui-input
+      [tuiTextfieldCleaner]="true"
+      [tuiTextfieldLabelOutside]="true"
+      tuiTextfieldIconLeft="tuiIconSearchLarge"
+      class="input"
+      tuiTextfieldSize="m"
+    >
+      Поиск
+      <input tuiTextfield />
+    </tui-input>
+    <div class="bell">
+      <lucide-angular [img]="Bell" size="28" strokeWidth="2" />
+    </div>
+  </div>
+  <div
+    class="mini-profile-container"
+    [ngClass]="{ hover: isDropdownOpen }"
+    tuiDropdownAppearance="round"
+    [tuiDropdown]="userMenuDropdownContent"
+    [tuiDropdownManual]="isDropdownOpen"
+    tuiDropdownAlign="right"
+    tuiDropdownDirection="bottom"
+    [tuiDropdownOffset]="18"
+    (click)="toggleDropdown()"
+    (tuiActiveZoneChange)="onActiveZone($event)"
+    (tuiObscured)="onObscured($event)"
+  >
+    @if (avatarUrl) {
+    <img [src]="avatarUrl | tuiIcon" alt="Аватар" class="avatar" />
+    } @else {
+    <lucide-angular [img]="User" class="avatar" />
+    }
+    <lucide-angular
+      [img]="ChevronDown"
+      size="20"
+      strokeWidth="3"
+      class="chevron-down"
+    />
+
+    <ng-template #userMenuDropdownContent>
+      <div class="dropdown">
+        <div class="mini-profile">
+          @if (avatarUrl) {
+          <img [src]="avatarUrl | tuiIcon" alt="Аватар" class="avatar" />
+          } @else {
+          <lucide-angular [img]="User" class="avatar" />
+          }
+          <h2>{{ userFullName }}</h2>
+        </div>
+        <a
+          tuiLink
+          [routerLink]="['/profile', 'settings']"
+          (click)="toggleDropdown()"
+        >
+          <div class="dropdown-action">
+            <lucide-angular
+              [img]="Settings"
+              size="25"
+              strokeWidth="2"
+              class="settings"
+            />
+            <div>Настройка профиля</div>
+          </div>
+        </a>
+        <div class="dropdown-action" (click)="toggleDropdown()">
+          <lucide-angular
+            [img]="LogOut"
+            size="25"
+            strokeWidth="2"
+            class="log-out"
+          />
+          <div>Выйти из профиля</div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</header>
