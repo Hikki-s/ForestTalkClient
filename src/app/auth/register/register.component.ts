@@ -78,7 +78,7 @@ export class RegisterComponent {
   readonly registrationForm = new FormGroup({
     firstStep: new FormGroup(
       {
-        login: new FormControl<string>("", {
+        email: new FormControl<string>("", {
           nonNullable: true,
           validators: [Validators.required, emailValidator],
         }),
