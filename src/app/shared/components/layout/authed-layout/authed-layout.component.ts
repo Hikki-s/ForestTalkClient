@@ -13,4 +13,3 @@ import { SidebarComponent } from "@shared/components/sidebar/sidebar.component";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthedLayoutComponent {}
-
