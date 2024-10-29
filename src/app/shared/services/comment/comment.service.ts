@@ -3,21 +3,20 @@ import { HttpClient } from "@angular/common/http";
 import { API_URLS } from "@shared/constants/api-urls";
 import type { Comment, NewComment } from "@shared/models/post.model";
 import { catchError, of } from "rxjs";
-import { LoggerService } from "@shared/services/logger/logger.service";
+import { Logger } from "@shared/lib/logger/logger";
 
 @Injectable({
   providedIn: "root",
 })
 export class CommentService {
   private readonly http = inject(HttpClient);
-  private readonly logger = inject(LoggerService);
 
   getComments(postId: number) {
     return this.http
       .get<Comment[]>(API_URLS.GET_POST_COMMENTS(postId.toString()))
       .pipe(
         catchError((error) => {
-          this.logger.error(
+          Logger.api.error(
             `Error fetching comments for post ${postId}: ${error}`
           );
           return of([]);
@@ -30,7 +29,7 @@ export class CommentService {
       .post<Comment>(API_URLS.ADD_COMMENT_TO_POST(postId.toString()), comment)
       .pipe(
         catchError((error) => {
-          this.logger.error(`Error adding comment to post ${postId}: ${error}`);
+          Logger.api.error(`Error adding comment to post ${postId}: ${error}`);
           return of(null);
         })
       );
@@ -43,7 +42,7 @@ export class CommentService {
       })
       .pipe(
         catchError((error) => {
-          this.logger.error(`Error updating comment ${commentId}: ${error}`);
+          Logger.api.error(`Error updating comment ${commentId}: ${error}`);
           return of(null);
         })
       );
@@ -54,7 +53,7 @@ export class CommentService {
       .delete<void>(API_URLS.DELETE_COMMENT(commentId.toString()))
       .pipe(
         catchError((error) => {
-          this.logger.error(`Error deleting comment ${commentId}: ${error}`);
+          Logger.api.error(`Error deleting comment ${commentId}: ${error}`);
           return of(null);
         })
       );
