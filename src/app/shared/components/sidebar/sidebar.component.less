@@ -1,0 +1,44 @@
+[tuiCardLarge][data-space][data-space="normal"] {
+  padding: 20px 10px 20px 10px;
+  margin-left: -20px;
+  gap: 15px;
+}
+
+[tuiCardLarge][data-space] > [tuiLink]:last-child {
+  width: 100%;
+}
+
+[tuiLink] {
+  color: rgb(45, 51, 98);
+  &:hover {
+    color: rgb(4, 4, 9);
+  }
+}
+
+.tui-text_h6 {
+  line-height: 20px;
+}
+
+.sidebar-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
+  border-radius: 50px;
+  padding: 10px;
+
+  &:hover {
+    background-color: rgba(252, 92, 56, 0.8);
+    box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
+  }
+}
+
+.sidebar-icon-item {
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: flex;
+
+  &lucide-angular {
+    height: 1.75rem;
+  }
+}
