@@ -36,6 +36,7 @@
     "@taiga-ui/kit": "^3.96.0",
     "@taiga-ui/layout": "^3.96.0",
     "bcryptjs": "^2.4.3",
+    "@taiga-ui/styles": "^3.96.0",
     "debug": "^4.3.7",
     "lucide-angular": "^0.453.0",
     "rxjs": "~7.8.0",

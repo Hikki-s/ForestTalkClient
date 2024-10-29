@@ -28,9 +28,18 @@
 
 .app-main-container {
   display: flex;
+  gap: 20px;
 }
 
 app-sidebar,
 router-outlet {
   display: contents;
+}
+
+.sidebar {
+  min-width: 14.375rem;
+}
+
+.router-outlet-container {
+  flex-grow: 1;
 }

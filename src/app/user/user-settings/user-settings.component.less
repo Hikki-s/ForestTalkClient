@@ -1,0 +1,60 @@
+.form-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-styles-button {
+  --tui-primary: #ff7e5f;
+  --tui-primary-hover: #ff6a3c;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.form-row {
+  display: contents;
+}
+
+.label {
+  color: #9f9f9f;
+  text-align: left;
+}
+
+.input {
+  width: 100%;
+  align-self: center;
+}
+
+.no-border input {
+  border: none;
+  box-shadow: none;
+}
+
+.no-border input:focus {
+  outline: none;
+}
+
+:host {
+  display: block;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #fff;
+  color: #000;
+}
