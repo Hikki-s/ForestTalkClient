@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
+  ViewChild,
   ViewEncapsulation,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -15,14 +16,15 @@ import {
   LogOut,
   Settings,
 } from "lucide-angular";
-import { TuiInputModule } from "@taiga-ui/kit";
+import { TuiInputComponent, TuiInputModule } from "@taiga-ui/kit";
 import {
   TuiDropdownModule,
   TuiLinkModule,
   TuiTextfieldControllerModule,
 } from "@taiga-ui/core";
 import { TuiActiveZoneModule, TuiObscuredModule } from "@taiga-ui/cdk";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: "app-header",
@@ -38,6 +40,8 @@ import { RouterLink } from "@angular/router";
     TuiObscuredModule,
     RouterLink,
     TuiLinkModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: "./header.component.html",
   styleUrl: "./header.component.less",
@@ -55,8 +59,12 @@ export class HeaderComponent {
   protected readonly Settings = Settings;
 
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly router = inject(Router);
+
+  @ViewChild("searchInput") searchInputRef!: TuiInputComponent;
 
   isDropdownOpen = false;
+  searchControl = new FormControl("");
 
   onObscured(obscured: boolean): void {
     if (obscured) {
@@ -68,6 +76,20 @@ export class HeaderComponent {
   onActiveZone(active: boolean): void {
     this.isDropdownOpen = active && this.isDropdownOpen;
     this.cdr.markForCheck();
+  }
+
+  onSearch(): void {
+    const searchQuery = this.searchControl.value?.trim();
+
+    if (searchQuery) {
+      this.router.navigate(["/search"], {
+        queryParams: { q: searchQuery },
+      });
+    } else {
+      this.router.navigate(["/search"]);
+    }
+
+    this.searchControl.reset();
   }
 
   toggleDropdown(): void {
