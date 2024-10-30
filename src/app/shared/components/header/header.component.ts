@@ -16,7 +16,7 @@ import {
   LogOut,
   Settings,
 } from "lucide-angular";
-import { TuiInputComponent, TuiInputModule } from "@taiga-ui/kit";
+import { TuiInputModule } from "@taiga-ui/kit";
 import {
   TuiDropdownModule,
   TuiLinkModule,
@@ -61,7 +61,7 @@ export class HeaderComponent {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
 
-  @ViewChild("searchInput") searchInputRef!: TuiInputComponent;
+  @ViewChild("searchInput") searchInputRef!: any;
 
   isDropdownOpen = false;
   searchControl = new FormControl("");
@@ -89,6 +89,7 @@ export class HeaderComponent {
       this.router.navigate(["/search"]);
     }
 
+    this.searchInputRef.el.nativeElement.blur();
     this.searchControl.reset();
   }
 

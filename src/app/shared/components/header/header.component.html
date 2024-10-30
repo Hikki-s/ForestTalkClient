@@ -15,9 +15,9 @@
       tuiTextfieldSize="m"
       (keydown.enter)="onSearch()"
       [formControl]="searchControl"
-      #searchInput
     >
       Поиск
+        <input tuiTextfield #searchInput />
     </tui-input>
     <div class="bell">
       <lucide-angular [img]="Bell" size="28" strokeWidth="2" />
