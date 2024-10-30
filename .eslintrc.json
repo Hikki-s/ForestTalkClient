@@ -1,6 +1,5 @@
 {
   "root": true,
-  "ignorePatterns": ["!**/*", "src/app/shared/constants/*.ts"],
   "plugins": ["@nx"],
   "settings": {
     "import/resolver": {
@@ -24,7 +23,17 @@
           "./tsconfig.spec.json"
         ]
       },
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "property",
+            "format": [
+              "camelCase", "snake_case", "UPPER_CASE", "PascalCase"
+            ]
+          }
+        ]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
