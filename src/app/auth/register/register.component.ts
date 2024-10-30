@@ -29,6 +29,7 @@ import { emailValidator } from "@shared/validators/email/email.validator";
 import { hashPassword } from "@shared/helpers/hash-password";
 import { convertDateToISO } from "@shared/helpers/convert-date-to-ISO";
 import { Router } from "@angular/router";
+import { Logger } from "@shared/lib/logger/logger";
 import { RegistrationService } from "../shared/services/registration/registration.service";
 import type { TUserRegistrationValues } from "../shared/models/registrationValues.interface";
 
@@ -93,6 +94,7 @@ export class RegisterComponent {
           nonNullable: true,
           validators: [Validators.required, emailValidator],
         }),
+
         password: new FormControl<string>("", {
           nonNullable: true,
           validators: [
@@ -102,10 +104,12 @@ export class RegisterComponent {
             passwordValidator,
           ],
         }),
+
         confirmPassword: new FormControl<string>("", {
           nonNullable: true,
         }),
       },
+
       { validators: [confirmPasswordValidator] }
     ),
 
@@ -113,11 +117,14 @@ export class RegisterComponent {
       nonNullable: true,
       validators: [Validators.required],
     }),
+
     lastName: new FormControl<string>("", {
       nonNullable: true,
       validators: [Validators.required],
     }),
+
     patronymic: new FormControl<string>(""),
+
     birthDate: new FormControl<TuiDay>(
       TuiDay.currentLocal().append({ year: -14 }),
       {
@@ -125,50 +132,11 @@ export class RegisterComponent {
         validators: [Validators.required],
       }
     ),
+
     bio: new FormControl<string>(""),
   });
 
-  nextStep() {
-    if (this.currentRegistrationStep < 1) {
-      this.currentRegistrationStep++;
-    }
-  }
-
-  prevStep() {
-    if (this.currentRegistrationStep > 0) {
-      this.currentRegistrationStep--;
-    }
-  }
-
-  checkEmail() {
-    this.loading.set(true);
-    this.registrationService
-      .checkEmail(this.registrationForm.controls.firstStep.controls.email.value)
-      .subscribe({
-        next: (res) => {
-          if (!res.exists) {
-            this.nextStep();
-          } else {
-            this.alert
-              .open(
-                "<strong>Пользователь с таким email-ом уже зарегистрирован!</strong>",
-                {
-                  label: "Ошибка:",
-                  status: "error",
-                  autoClose: 5000,
-                }
-              )
-              .subscribe();
-          }
-          this.loading.set(false);
-        },
-        error: () => {
-          this.loading.set(false);
-        },
-      });
-  }
-
-  submit() {
+  onSubmit() {
     this.loading.set(true);
     this.registrationForm.disable();
     const formData: TUserRegistrationValues = {
@@ -203,18 +171,66 @@ export class RegisterComponent {
             .subscribe();
           this.router.navigate(["/login"]);
         },
-        error: (error) => {
-          console.error("Ошибка регистрации", error);
-          this.alert
-            .open(
-              "<strong>Произошла ошибка при регистрации. Попробуйте снова.</strong>",
-              {
-                label: "Ошибка:",
-                status: "error",
-                autoClose: 5000,
-              }
-            )
-            .subscribe();
+        error: () => {
+          Logger.api.error("Ошибка регистрации");
+          this.showApiError();
+        },
+      });
+  }
+
+  nextStep() {
+    if (this.currentRegistrationStep < 1) {
+      this.currentRegistrationStep++;
+    }
+  }
+
+  prevStep() {
+    if (this.currentRegistrationStep > 0) {
+      this.currentRegistrationStep--;
+    }
+  }
+
+  showApiError(): void {
+    this.alert
+      .open("<strong>Произошла ошибка. Попробуйте снова.</strong>", {
+        label: "Ошибка:",
+        status: "error",
+        autoClose: 5000,
+      })
+      .subscribe();
+  }
+
+  checkEmail() {
+    this.loading.set(true);
+    this.registrationForm.disable();
+    this.registrationService
+      .checkEmail(this.registrationForm.controls.firstStep.controls.email.value)
+      .pipe(
+        finalize(() => {
+          this.loading.set(false);
+          this.registrationForm.enable();
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          if (!res.exists) {
+            this.nextStep();
+          } else {
+            this.alert
+              .open(
+                "<strong>Пользователь с таким email-ом уже зарегистрирован!</strong>",
+                {
+                  label: "Ошибка:",
+                  status: "error",
+                  autoClose: 5000,
+                }
+              )
+              .subscribe();
+          }
+        },
+        error: () => {
+          Logger.api.error("Ошибка проверки почты");
+          this.showApiError();
         },
       });
   }
