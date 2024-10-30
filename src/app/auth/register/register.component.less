@@ -1,24 +1,23 @@
 :host {
   display: flex;
-  flex-direction: column;
-  color: #fff;
-}
+  justify-content: center;
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  box-sizing: border-box;
+  .form {
+    display: grid;
+    gap: 0.9375rem;
+    color: var(--tui-text-01-night);
+    max-width: 43.75rem;
+    width: 100%;
 
-  .heading {
-    font: var(--tui-font-heading-3);
-    margin-bottom: 15px;
-    text-align: center;
-  }
+    .heading {
+      margin-bottom: 0.9375rem;
+      text-align: center;
+    }
 
-  .first-step {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    .first-step {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9375rem;
+    }
   }
 }

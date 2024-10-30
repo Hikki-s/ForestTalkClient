@@ -1,4 +1,5 @@
-import * as bcrypt from "bcryptjs";
+import { sha256 } from "js-sha256";
 
-export const hashPassword = (password: string): string =>
-  bcrypt.hashSync(password, 10);
+export const hashPassword = (password: string): string => {
+  return sha256(password);
+};

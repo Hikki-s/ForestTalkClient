@@ -4,7 +4,7 @@ export type TUserRegistrationValues = Readonly<{
   firstName: string;
   lastName: string;
   patronymic: string | null;
-  birthDate: Date;
+  birthDate: string;
   // avatar_url,
   bio: string | null;
 }>;

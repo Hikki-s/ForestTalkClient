@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
   FormControl,
@@ -12,20 +12,25 @@ import {
   TuiInputDateModule,
   TuiInputModule,
   TuiInputPasswordModule,
-  TuiStepperModule,
   TuiTextareaModule,
 } from "@taiga-ui/kit";
-import { interval, map, scan, startWith } from "rxjs";
+import { finalize, interval, map, scan, startWith } from "rxjs";
 import { TuiDay, tuiIsFalsy } from "@taiga-ui/cdk";
 import {
+  TuiAlertService,
   TuiButtonModule,
   TuiErrorModule,
+  TuiModeModule,
   TuiTextfieldControllerModule,
 } from "@taiga-ui/core";
 import { passwordValidator } from "@shared/validators/password/password.validator";
 import { confirmPasswordValidator } from "@shared/validators/confirm-password/confirm-password.validator";
-import { ageValidator } from "@shared/validators/age/age.validator";
 import { emailValidator } from "@shared/validators/email/email.validator";
+import { hashPassword } from "@shared/helpers/hash-password";
+import { convertDateToISO } from "@shared/helpers/convert-date-to-ISO";
+import { Router } from "@angular/router";
+import { RegistrationService } from "../shared/services/registration/registration.service";
+import type { TUserRegistrationValues } from "../shared/models/registrationValues.interface";
 
 @Component({
   selector: "app-register",
@@ -38,14 +43,13 @@ import { emailValidator } from "@shared/validators/email/email.validator";
     TuiErrorModule,
     TuiFieldErrorPipeModule,
     TuiInputPasswordModule,
-    TuiStepperModule,
     TuiTextareaModule,
     TuiInputDateModule,
     TuiButtonModule,
+    TuiModeModule,
   ],
   templateUrl: "./register.component.html",
   styleUrl: "./register.component.less",
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
@@ -66,14 +70,21 @@ import { emailValidator } from "@shared/validators/email/email.validator";
           startWith("Неверный формат пароля")
         ),
         passwordsDoNotMatch: "Пароли не совпадают",
-        underage: "Минимальный возраст регистрации - 14 лет!",
-        overage: "Минимальный возраст регистрации - 120 лет!",
       },
     },
+    RegistrationService,
   ],
 })
 export class RegisterComponent {
+  private readonly registrationService = inject(RegistrationService);
+  private readonly alert = inject(TuiAlertService);
+  private readonly router = inject(Router);
   currentRegistrationStep = 0;
+  readonly minBirthDate = TuiDay.currentLocal().append({ year: -14 });
+
+  readonly maxBirthDate = TuiDay.currentLocal().append({ year: -120 });
+
+  readonly loading = signal(false);
 
   readonly registrationForm = new FormGroup({
     firstStep: new FormGroup(
@@ -111,7 +122,7 @@ export class RegisterComponent {
       TuiDay.currentLocal().append({ year: -14 }),
       {
         nonNullable: true,
-        validators: [Validators.required, ageValidator],
+        validators: [Validators.required],
       }
     ),
     bio: new FormControl<string>(""),
@@ -129,7 +140,82 @@ export class RegisterComponent {
     }
   }
 
+  checkEmail() {
+    this.loading.set(true);
+    this.registrationService
+      .checkEmail(this.registrationForm.controls.firstStep.controls.email.value)
+      .subscribe({
+        next: (res) => {
+          if (!res.exists) {
+            this.nextStep();
+          } else {
+            this.alert
+              .open(
+                "<strong>Пользователь с таким email-ом уже зарегистрирован!</strong>",
+                {
+                  label: "Ошибка:",
+                  status: "error",
+                  autoClose: 5000,
+                }
+              )
+              .subscribe();
+          }
+          this.loading.set(false);
+        },
+        error: () => {
+          this.loading.set(false);
+        },
+      });
+  }
+
   submit() {
-    return null;
+    this.loading.set(true);
+    this.registrationForm.disable();
+    const formData: TUserRegistrationValues = {
+      email: this.registrationForm.controls.firstStep.controls.email.value,
+      password: hashPassword(
+        this.registrationForm.controls.firstStep.controls.password.value
+      ),
+      firstName: this.registrationForm.controls.firstName.value,
+      lastName: this.registrationForm.controls.lastName.value,
+      patronymic: this.registrationForm.controls.patronymic.value,
+      birthDate: convertDateToISO(
+        this.registrationForm.controls.birthDate.value
+      ),
+      bio: this.registrationForm.controls.bio.value,
+    };
+    this.registrationService
+      .register(formData)
+      .pipe(
+        finalize(() => {
+          this.loading.set(false);
+          this.registrationForm.enable();
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.alert
+            .open("<strong>Регистрация прошла успешно!</strong>", {
+              label: "Поздравляем!:",
+              status: "success",
+              autoClose: 5000,
+            })
+            .subscribe();
+          this.router.navigate(["/login"]);
+        },
+        error: (error) => {
+          console.error("Ошибка регистрации", error);
+          this.alert
+            .open(
+              "<strong>Произошла ошибка при регистрации. Попробуйте снова.</strong>",
+              {
+                label: "Ошибка:",
+                status: "error",
+                autoClose: 5000,
+              }
+            )
+            .subscribe();
+        },
+      });
   }
 }
