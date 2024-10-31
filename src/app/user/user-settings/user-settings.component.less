@@ -1,10 +1,64 @@
-.form-title {
+.settings-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.sidebar-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 15rem;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 0.625rem rgba(0, 0, 0, 0.1);
+  align-self: flex-start;
+  border-radius: 1.875rem;
+}
+
+.sidebar-content {
+  width: 100%;
+  padding: 1rem;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-item {
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #e0e0e0;
+}
+
+.menu-item-selected {
+  background-color: #4370924d;
+}
+
+.form-container {
+  flex-grow: 1;
+  border-radius: 1.875rem;
+  background-color: #fff;
+  box-shadow: 0 4px 0.625rem rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.form-content {
+  width: 100%;
+}
+
+.section-title {
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
 
-.form-container {
+.fields-container {
   display: grid;
   grid-template-columns: 1fr 2fr;
   column-gap: 0.5rem;
@@ -13,7 +67,7 @@
   width: 100%;
 }
 
-.custom-styles-button {
+.submit-button {
   --tui-primary: #ff7e5f;
   --tui-primary-hover: #ff6a3c;
 }
@@ -24,20 +78,16 @@
   margin-top: 1.5rem;
 }
 
-.align-center {
-  align-items: center;
-}
-
-.form-row {
+.field-row {
   display: contents;
 }
 
-.label {
+.field-label {
   color: #9f9f9f;
   text-align: left;
 }
 
-.input {
+.field-input {
   width: 100%;
   align-self: center;
 }
@@ -51,10 +101,27 @@
   outline: none;
 }
 
-:host {
-  display: block;
-  padding: 1rem;
-  border-radius: 1rem;
-  background: #fff;
-  color: #000;
+.sidebar-button {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 0.75rem;
+}
+
+.sidebar-button:hover {
+  background-color: #4370924d;
+  border-radius: 0.75rem;
+  color: #333;
+}
+
+.active {
+  background-color: #4370924d;
+  border-radius: 0.75rem;
+  font-weight: bold;
+  color: #333;
 }
