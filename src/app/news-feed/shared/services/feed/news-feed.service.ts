@@ -4,14 +4,13 @@ import { BehaviorSubject, catchError, of } from "rxjs";
 import { map } from "rxjs/operators";
 import type { NewsPost } from "@shared/models/post.model";
 import { API_URLS } from "@shared/constants/api-urls";
-import { LoggerService } from "@shared/services/logger/logger.service";
+import { Logger } from "@shared/lib/logger/logger";
 
 @Injectable({
   providedIn: "root",
 })
 export class NewsFeedService {
   private readonly http = inject(HttpClient);
-  private readonly logger = inject(LoggerService);
   private readonly postsSubject = new BehaviorSubject<NewsPost[]>([]);
   posts$ = this.postsSubject.asObservable();
 
@@ -26,7 +25,7 @@ export class NewsFeedService {
           return posts;
         }),
         catchError((error) => {
-          this.logger.error(`Error fetching posts: ${error}`);
+          Logger.api.error(`Error fetching posts: ${error}`);
           return of([]);
         })
       )

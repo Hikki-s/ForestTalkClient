@@ -1,5 +1,5 @@
 const PREFIX = "";
-const DOMAIN = `http://localhost:3000${PREFIX}`;
+const DOMAIN = `https://forest-talk-api.onrender.com/api${PREFIX}`;
 
 export const API_URLS = {
   // Аутентификация
@@ -7,6 +7,7 @@ export const API_URLS = {
   AUTH_LOGIN: `${DOMAIN}/auth/login`,
   AUTH_REFRESH: `${DOMAIN}/auth/refresh`,
   AUTH_LOGOUT: `${DOMAIN}/auth/logout`,
+  CHECK_EMAIL: `${DOMAIN}/auth/check-email`,
 
   // Пользователи
   GET_USER_BY_ID: (id: string) => `${DOMAIN}/users/${id}`,
