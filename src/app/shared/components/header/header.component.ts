@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   inject,
   ViewChild,
   ViewEncapsulation,
@@ -61,7 +62,7 @@ export class HeaderComponent {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
 
-  @ViewChild("searchInput") searchInputRef!: any;
+  @ViewChild("searchInput", { read: ElementRef }) inputRef!: ElementRef;
 
   isDropdownOpen = false;
   searchControl = new FormControl("");
@@ -89,7 +90,7 @@ export class HeaderComponent {
       this.router.navigate(["/search"]);
     }
 
-    this.searchInputRef.el.nativeElement.blur();
+    this.inputRef.nativeElement.blur();
     this.searchControl.reset();
   }
 
