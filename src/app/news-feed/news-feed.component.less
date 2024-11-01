@@ -1,0 +1,66 @@
+.news-feed-wrapper {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.sidebar-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 15rem;
+  background-color: #f4f4f4;
+  box-shadow: 0 4px 0.625rem rgba(0, 0, 0, 0.1);
+  align-self: flex-start;
+  border-radius: 1.875rem;
+}
+
+[tuiCardLarge] {
+  width: 15rem;
+}
+
+[tuiCardLarge][data-space][data-space="normal"] {
+  padding: 1.25rem 0.625rem;
+  gap: 0.9375rem;
+}
+
+[tuiCardLarge][data-space] > [tuiLink]:last-child {
+  width: 100%;
+}
+
+[tuiLink] {
+  color: rgb(45, 51, 98);
+
+  &:hover {
+    color: rgb(4, 4, 9);
+  }
+
+}
+
+.tui-text_h6 {
+  line-height: 1.25rem;
+}
+
+.sidebar-item {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
+  border-radius: 3.125rem;
+  padding: 0.625rem;
+
+  &:hover {
+    background-color: rgba(252, 92, 56, 0.8);
+    box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
+  }
+
+  &.hover {
+    color: rgb(4, 4, 9);
+    background-color: rgba(252, 92, 56, 0.8);
+    box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
+  }
+}
+
+.news-feed-list-container {
+  flex-grow: 1;
+}
