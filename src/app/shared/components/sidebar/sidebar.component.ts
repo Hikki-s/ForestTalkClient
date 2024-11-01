@@ -1,16 +1,10 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TuiCardModule, TuiSurfaceModule } from "@taiga-ui/experimental";
-import {
-  BookUser,
-  LucideAngularModule,
-  MessageSquare,
-  Newspaper,
-  SquareUserRound,
-  UsersRound,
-} from "lucide-angular";
+import { LucideAngularModule } from "lucide-angular";
 import { RouterLink } from "@angular/router";
 import { TuiLinkModule } from "@taiga-ui/core";
+import { SIDEBAR_SECTIONS } from "@shared/constants/sidebarConstants";
 
 @Component({
   selector: "app-sidebar",
@@ -28,9 +22,5 @@ import { TuiLinkModule } from "@taiga-ui/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
-  protected readonly Newspaper = Newspaper;
-  protected readonly SquareUserRound = SquareUserRound;
-  protected readonly MessageSquare = MessageSquare;
-  protected readonly UsersRound = UsersRound;
-  protected readonly BookUser = BookUser;
+  protected readonly fields = SIDEBAR_SECTIONS;
 }
