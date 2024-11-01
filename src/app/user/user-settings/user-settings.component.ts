@@ -3,6 +3,10 @@ import { CommonModule } from "@angular/common";
 import { TuiInputModule } from "@taiga-ui/kit";
 import { ReactiveFormsModule, FormControl, FormGroup } from "@angular/forms";
 import { TuiButtonModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
+import {
+  SIDEBAR_SECTIONS,
+  USER_SETTINGS_GENERAL_FIELDS,
+} from "@shared/constants/userSettingsConstants";
 
 @Component({
   selector: "app-user-settings",
@@ -19,6 +23,7 @@ import { TuiButtonModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserSettingsComponent {
+  // Форма пользователя для раздела "Общее"
   readonly userForm = new FormGroup({
     firstName: new FormControl(""),
     lastName: new FormControl(""),
@@ -30,30 +35,17 @@ export class UserSettingsComponent {
     language: new FormControl(""),
   });
 
-  fields = [
-    { label: "Имя", controlName: "firstName", placeholder: "Введите имя" },
-    {
-      label: "Фамилия",
-      controlName: "lastName",
-      placeholder: "Введите фамилию",
-    },
-    { label: "Почта", controlName: "email", placeholder: "Введите почту" },
-    { label: "Телефон", controlName: "phone", placeholder: "Введите телефон" },
-    {
-      label: "Дата рождения",
-      controlName: "birthDate",
-      placeholder: "Введите дату рождения",
-    },
-    {
-      label: "Место работы",
-      controlName: "workPlace",
-      placeholder: "Введите место работы",
-    },
-    {
-      label: "Место проживания",
-      controlName: "residence",
-      placeholder: "Введите место проживания",
-    },
-    { label: "Язык", controlName: "language", placeholder: "Введите язык" },
-  ];
+  fields = USER_SETTINGS_GENERAL_FIELDS;
+  sections = SIDEBAR_SECTIONS;
+
+  selectedSection = this.sections[0].name;
+
+  selectSection(section: { name: string; label: string }) {
+    this.selectedSection = section.name;
+  }
+
+  getSelectedSectionLabel(): string {
+    const section = this.sections.find((s) => s.name === this.selectedSection);
+    return section ? section.label : "";
+  }
 }
