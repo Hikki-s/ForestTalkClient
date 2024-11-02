@@ -1,5 +1,5 @@
 const PREFIX = "";
-const DOMAIN = `https://forest-talk-api.onrender.com/api${PREFIX}`;
+const DOMAIN = `http://localhost:3000${PREFIX}`;
 
 export const API_URLS = {
   // Аутентификация
