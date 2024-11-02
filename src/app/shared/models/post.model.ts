@@ -7,16 +7,17 @@ export interface NewsPost {
   likeCount: number;
   commentCount: number;
   comments?: Comment[];
-  createdAt: Date;
+  createdAt: string;
 }
 
-interface PostOwner {
+export interface PostOwner {
   id: string;
   ownerName: string;
+  ownerType: string;
   avatarUrl?: string;
 }
 
-interface PostMedia {
+export interface PostMedia {
   type: MediaType;
   url: string;
 }
