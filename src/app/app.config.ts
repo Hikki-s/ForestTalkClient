@@ -9,6 +9,7 @@ import { TuiRootModule } from "@taiga-ui/core";
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from "@taiga-ui/i18n";
 import { of } from "rxjs";
 import { appRoutes } from "./app.routes";
+import {provideOAuthClient} from "angular-oauth2-oidc";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     NG_EVENT_PLUGINS,
     provideHttpClient(),
+    provideOAuthClient(),
     importProvidersFrom(TuiRootModule),
     {
       provide: TUI_LANGUAGE,
