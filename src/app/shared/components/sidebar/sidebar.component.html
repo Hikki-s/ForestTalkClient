@@ -1,42 +1,12 @@
 <div tuiCardLarge tuiSurface="elevated">
-  <a tuiLink [routerLink]="['/profile']">
+  @for (field of fields; track $index) {
+  <a tuiLink [routerLink]="[field.url]">
     <div class="sidebar-item">
       <div class="sidebar-icon-item">
-        <lucide-angular [img]="SquareUserRound" size="28" strokeWidth="2" />
+        <lucide-angular [img]="field.icon" size="28" strokeWidth="2" />
       </div>
-      <div class="tui-text_h6">Моя страница</div>
+      <div class="tui-text_h6">{{ field.label }}</div>
     </div>
   </a>
-  <a tuiLink [routerLink]="['/feed']">
-    <div class="sidebar-item">
-      <div class="sidebar-icon-item">
-        <lucide-angular [img]="Newspaper" size="28" strokeWidth="2" />
-      </div>
-      <div class="tui-text_h6">Новости</div>
-    </div>
-  </a>
-  <a tuiLink [routerLink]="['/chats']">
-    <div class="sidebar-item">
-      <div class="sidebar-icon-item">
-        <lucide-angular [img]="MessageSquare" size="28" strokeWidth="2" />
-      </div>
-      <div class="tui-text_h6">Мессенджер</div>
-    </div>
-  </a>
-  <a tuiLink [routerLink]="['/friends']">
-    <div class="sidebar-item">
-      <div class="sidebar-icon-item">
-        <lucide-angular [img]="BookUser" size="28" strokeWidth="2" />
-      </div>
-      <div class="tui-text_h6">Друзья</div>
-    </div>
-  </a>
-  <a tuiLink [routerLink]="['/groups']">
-    <div class="sidebar-item">
-      <div class="sidebar-icon-item">
-        <lucide-angular [img]="UsersRound" size="28" strokeWidth="2" />
-      </div>
-      <div class="tui-text_h6">Сообщества</div>
-    </div>
-  </a>
+  }
 </div>

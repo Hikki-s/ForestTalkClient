@@ -2,17 +2,18 @@
   "feed": [
     {
       "id": 1,
-      "content": "Первый пост с текстом.",
+      "content": "Первый пост с текстом и фото.",
       "postMedia": [
         {
           "type": "image",
-          "url": "http://localhost:3000/images/post1.jpg"
+          "url": "https://i.ytimg.com/vi/NXHjIJaXFfk/maxresdefault.jpg"
         }
       ],
       "owner": {
         "id": "1",
-        "ownerName": "Пользователь 1",
-        "avatarUrl": "http://localhost:3000/avatars/user1.jpg"
+        "ownerName": "Борис Капранов",
+        "ownerType": "User",
+        "avatarUrl": "https://lastfm.freetls.fastly.net/i/u/ar0/12bfcac1a5fe76532b2b03bed974c3d0.jpg"
       },
       "isLike": false,
       "likeCount": 5,
@@ -21,17 +22,26 @@
     },
     {
       "id": 2,
-      "content": "Второй пост с видео.",
+      "content": "Второй пост с текстом и несколькими фото.",
       "postMedia": [
         {
-          "type": "video",
-          "url": "http://localhost:3000/videos/post2.mp4"
+          "type": "image",
+          "url": "https://avatars.mds.yandex.net/i?id=089e9ddacb9369d2d74c0d2e86e93270_l-5235257-images-thumbs&n=13"
+        },
+        {
+          "type": "image",
+          "url": "https://avatars.dzeninfra.ru/get-zen_doc/4963481/pub_6295bfe67faaea548eb0ddb9_62966764b7c8282a0fc987aa/scale_1200"
+        },
+        {
+          "type": "image",
+          "url": "https://avatars.mds.yandex.net/i?id=f20dfc96e3bafdaada0763a12dd5266cc4091f9c1758d272-5646019-images-thumbs&n=13"
         }
       ],
       "owner": {
         "id": "2",
-        "ownerName": "Пользователь 2",
-        "avatarUrl": "http://localhost:3000/avatars/user2.jpg"
+        "ownerName": "Лера Тишкина",
+        "ownerType": "User",
+        "avatarUrl": "https://i.pinimg.com/736x/12/29/88/122988b81e14cf42281692cbf39e2f11.jpg"
       },
       "isLike": true,
       "likeCount": 12,
@@ -44,45 +54,14 @@
       "postMedia": [],
       "owner": {
         "id": "3",
-        "ownerName": "Пользователь 3",
-        "avatarUrl": "http://localhost:3000/avatars/user3.jpg"
+        "ownerName": "Anime try_again",
+        "ownerType": "Community",
+        "avatarUrl": "https://i.ytimg.com/vi/Or9hLuVkYW0/maxresdefault.jpg"
       },
       "isLike": true,
       "likeCount": 3,
       "commentCount": 1,
       "createdAt": "2024-10-09T12:15:00Z"
-    }
-  ],
-  "post_comments": [
-    {
-      "id": 1,
-      "commentOwner": {
-        "userId": "1",
-        "username": "Пользователь 1",
-        "avatarUrl": "http://localhost:3000/avatars/user1.jpg"
-      },
-      "content": "Комментарий к первому посту.",
-      "createdAt": "2024-10-11T11:00:00Z"
-    },
-    {
-      "id": 2,
-      "commentOwner": {
-        "userId": "2",
-        "username": "Пользователь 2",
-        "avatarUrl": "http://localhost:3000/avatars/user2.jpg"
-      },
-      "content": "Еще один комментарий к первому посту.",
-      "createdAt": "2024-10-11T12:00:00Z"
-    },
-    {
-      "id": 3,
-      "commentOwner": {
-        "userId": "3",
-        "username": "Пользователь 3",
-        "avatarUrl": "http://localhost:3000/avatars/user3.jpg"
-      },
-      "content": "Комментарий к второму посту.",
-      "createdAt": "2024-10-10T16:00:00Z"
     }
   ]
 }

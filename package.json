@@ -98,11 +98,11 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "npm run lint"
-    ],
-    "**/*.{ts,tsx,css,scss}": [
-      "npm run format"
+    "src/**/*.{ts,tsx,css,scss,html}": [
+      "npm run lint",
+      "npm run format",
+      "format:check",
+      "npm run stylelint"
     ]
   }
 }

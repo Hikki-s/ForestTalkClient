@@ -1,28 +1,67 @@
-<h2 class="form-title">Общее</h2>
-<form class="b-form">
+<div class="settings-wrapper">
   <div class="form-container">
-    <div *ngFor="let field of fields" class="form-row">
-      <span class="label">{{ field.label }}</span>
-      <tui-input
-        [formControlName]="field.controlName"
-        tuiTextfieldSize="m"
-        [tuiTextfieldCleaner]="true"
-        class="input no-border"
-      >
-        {{ field.placeholder }}
-        <input tuiTextfield />
-      </tui-input>
+    <div class="form-content">
+      <h2 class="tui-text_h6">
+        {{ getSelectedSectionLabel() }}
+      </h2>
+      <ng-container [ngSwitch]="selectedSection">
+        <form
+          *ngSwitchCase="'general'"
+          [formGroup]="userForm"
+          class="settings-form"
+        >
+          <div class="fields-container">
+            <div *ngFor="let field of fields" class="field-row">
+              <span class="field-label">{{ field.label }}</span>
+              <tui-input
+                [formControlName]="field.controlName"
+                tuiTextfieldSize="m"
+                [tuiTextfieldCleaner]="true"
+                class="field-input no-border"
+              >
+                {{ field.placeholder }}
+                <input tuiTextfield />
+              </tui-input>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button
+              tuiButton
+              appearance="primary"
+              size="l"
+              class="submit-button"
+              style="font-size: 14px"
+            >
+              Сохранить настройки
+            </button>
+          </div>
+        </form>
+        <div *ngSwitchCase="'education'">
+          <p>Настройки для образования</p>
+        </div>
+        <div *ngSwitchCase="'interests'">
+          <p>Настройки для интересов</p>
+        </div>
+        <div *ngSwitchCase="'security'">
+          <p>Настройки безопасности</p>
+        </div>
+      </ng-container>
     </div>
   </div>
-  <div class="form-actions">
-    <button
-      tuiButton
-      appearance="primary"
-      size="l"
-      class="custom-styles-button"
-      style="font-size: 14px"
-    >
-      Сохранить настройки
-    </button>
+  <div class="sidebar-container">
+    <div class="sidebar-content">
+      <button
+        *ngFor="let section of sections"
+        type="button"
+        (click)="selectSection(section)"
+        class="sidebar-button tui-text_h6"
+        [ngClass]="{
+          active: selectedSection === section.name,
+          inactive: selectedSection !== section.name
+        }"
+      >
+        {{ section.label }}
+      </button>
+    </div>
   </div>
-</form>
+</div>

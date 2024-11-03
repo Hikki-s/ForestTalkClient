@@ -1,3 +1,20 @@
-<div>
-  <router-outlet></router-outlet>
+<div class="news-feed-wrapper">
+  <div class="news-feed-list-container">
+    <app-news-post-list />
+  </div>
+
+  <div tuiCardLarge tuiSurface="elevated">
+    @for (section of sections; track $index) {
+    <a tuiLink [routerLink]="[section.url]" [queryParams]="section.queryParams">
+      <div
+        class="sidebar-item"
+        [ngClass]="{
+          hover: getFullUrl(section.url, section.queryParams) === currentUrl
+        }"
+      >
+        <div class="tui-text_h6">{{ section.label }}</div>
+      </div>
+    </a>
+    }
+  </div>
 </div>

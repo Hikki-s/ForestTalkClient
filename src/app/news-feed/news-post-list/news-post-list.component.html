@@ -1,1 +1,49 @@
-<div>News-List</div>
+<tui-scrollbar class="scroll-bar">
+  <div class="content">
+    @for (post of posts$ | async; track post.id) {
+    <div tuiCardLarge tuiSurface="elevated">
+      <div class="header-container">
+        <div tuiHeader [routerLink]="post.owner | ownerLink">
+          <tui-avatar
+            avatarUrl="{{ post.owner.avatarUrl }}"
+            text="{{ post.owner.ownerName }}"
+            [rounded]="true"
+            class="avatar"
+          />
+          <div tuiTitle>
+            {{ post.owner.ownerName }}
+            <span tuiSubtitle>{{ post.createdAt | timeAgo }}</span>
+          </div>
+        </div>
+      </div>
+      @if (post.content) {
+      <div class="tui-text_body-l">
+        {{ post.content }}
+      </div>
+      } @if (post.postMedia?.length) { @if (post.postMedia?.length !== 1) {
+      <button
+        icon="tuiIconChevronLeftLarge"
+        title="Previous"
+        tuiIconButton
+        type="button"
+        (click)="carousel.prev()"
+      ></button>
+      }
+      <tui-carousel #carousel class="carousel">
+        @for (media of post.postMedia; track $index) {
+        <img *tuiItem src="{{ media.url }}" alt="" class="media-item" />
+        }
+      </tui-carousel>
+      @if (post.postMedia?.length !== 1) {
+      <button
+        icon="tuiIconChevronRightLarge"
+        title="Next"
+        tuiIconButton
+        type="button"
+        (click)="carousel.next()"
+      ></button>
+      } }
+    </div>
+    }
+  </div>
+</tui-scrollbar>

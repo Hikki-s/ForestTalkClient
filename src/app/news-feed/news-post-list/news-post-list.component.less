@@ -1,0 +1,43 @@
+.scroll-bar {
+  max-height: 93vh;
+}
+
+[tuiCardLarge][data-space]:not([tuiCell]):not([tuiHeader]) {
+  --t-gap: 0.9375rem;
+}
+
+[tuiHeader] {
+  cursor: pointer;
+  gap: 0.625rem;
+  height: 3.5rem;
+}
+
+[tuiSurface][data-surface="elevated"] {
+  box-shadow: none;
+}
+
+.avatar {
+  width: unset !important;
+  height: unset !important;
+  max-height: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.t-content {
+  gap: 1.25rem;
+}
+
+.content {
+  display: flex;
+  padding-top: 1.875rem;
+  padding-bottom: 1.875rem;
+  padding-right: 1.125rem;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.carousel img {
+  max-height: 42.5rem;
+  object-fit: contain;
+}
