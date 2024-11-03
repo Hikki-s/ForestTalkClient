@@ -37,7 +37,96 @@
   gap: 1.25rem;
 }
 
-.carousel img {
+.media-container {
+  margin-left: 24px;
+  margin-right: 24px;
+  border-radius: 1.5rem;
+  max-height: 42.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.carousel {
+  margin-left: -24px;
+  margin-right: -24px;
+  border-radius: 1.5rem;
+  position: relative;
+}
+
+.media-item {
+  border-radius: 1.5rem;
   max-height: 42.5rem;
   object-fit: contain;
+  width: 100%;
+  height: 100%;
+  display: block;
+  backdrop-filter: blur(10px);
+}
+
+.carousel-container {
+  border-radius: 1.5rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 100% !important;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+
+  opacity: 0;
+  transition: opacity 0.6s ease, background 0.6s ease;
+}
+
+.left-button {
+  left: 0;
+  border-radius: 1.5rem 0 0 1.5rem;
+
+  --tui-primary: none;
+
+  --tui-primary-hover: linear-gradient(
+          90deg,
+          rgba(255,255,255,0)
+  );
+  --tui-primary-active: linear-gradient(
+          90deg,
+          rgba(255,255,255,0)
+  );
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.right-button {
+  right: 0;
+  border-radius: 0 1.5rem 1.5rem 0;
+  --tui-primary: none;
+
+  --tui-primary-hover: linear-gradient(
+          270deg,
+          rgba(255,255,255,0)
+  );
+  --tui-primary-active: linear-gradient(
+          270deg,
+          rgba(255,255,255,0)
+  );
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.pagination {
+  --tui-primary-active: #fdb23f 100.17%;
+  --tui-primary:  #fc5c38 0.17%;
+  --tui-primary-hover: #a6290c 0.17%;
 }

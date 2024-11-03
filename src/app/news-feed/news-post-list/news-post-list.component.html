@@ -20,29 +20,45 @@
       <div class="tui-text_body-l">
         {{ post.content }}
       </div>
-      } @if (post.postMedia?.length) { @if (post.postMedia?.length !== 1) {
-      <button
-        icon="tuiIconChevronLeftLarge"
-        title="Previous"
-        tuiIconButton
-        type="button"
-        (click)="carousel.prev()"
-      ></button>
-      }
-      <tui-carousel #carousel class="carousel">
-        @for (media of post.postMedia; track $index) {
-        <img *tuiItem src="{{ media.url }}" alt="" class="media-item" />
+      } @if (post.postMedia?.length) {
+      <div class="carousel-container">
+        @if (post.postMedia?.length !== 1) {
+        <button
+          icon="tuiIconChevronLeftLarge"
+          title="Previous"
+          tuiIconButton
+          type="button"
+          (click)="carousel.prev()"
+          class="carousel-button left-button"
+        ></button>
         }
-      </tui-carousel>
-      @if (post.postMedia?.length !== 1) {
-      <button
-        icon="tuiIconChevronRightLarge"
-        title="Next"
-        tuiIconButton
-        type="button"
-        (click)="carousel.next()"
-      ></button>
-      } }
+          <tui-carousel #carousel class="carousel" [(index)]="post.mediaIndex">
+              @for (media of post.postMedia; track $index) {
+                  <div *tuiItem class="media-container" [style.background]="'url(' + media.url + ') no-repeat center center / cover'">
+                      <img src="{{ media.url }}" alt="" class="media-item" />
+                  </div>
+              }
+          </tui-carousel>
+        @if (post.postMedia?.length !== 1) {
+        <button
+          icon="tuiIconChevronRightLarge"
+          title="Next"
+          tuiIconButton
+          type="button"
+          (click)="carousel.next()"
+          class="carousel-button right-button"
+        ></button>
+        }
+      </div>
+        @if (post.postMedia?.length !== 1) {
+            <tui-pagination
+                    size="s"
+                    class="pagination"
+                    [length]="post.postMedia?.length || 0"
+                    [(index)]="post.mediaIndex"
+            ></tui-pagination>
+        }
+      }
     </div>
     }
   </div>

@@ -1,14 +1,18 @@
 import type { OnInit, OnDestroy } from "@angular/core";
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { BehaviorSubject, Subject, takeUntil, tap } from "rxjs";
+import { BehaviorSubject, map, Subject, takeUntil, tap } from "rxjs";
 import {
   TuiCardModule,
   TuiHeaderModule,
   TuiSurfaceModule,
   TuiTitleModule,
 } from "@taiga-ui/experimental";
-import { TuiAvatarModule, TuiCarouselModule } from "@taiga-ui/kit";
+import {
+  TuiAvatarModule,
+  TuiCarouselModule,
+  TuiPaginationModule,
+} from "@taiga-ui/kit";
 import { RouterLink } from "@angular/router";
 import { OwnerLinkPipe } from "@shared/pipes/owner-link.pipe";
 import type { NewsPost } from "@shared/models/post.model";
@@ -37,6 +41,7 @@ import { NewsFeedService } from "../shared/services/feed/news-feed.service";
     TuiScrollbarModule,
     TuiCarouselModule,
     TuiButtonModule,
+    TuiPaginationModule,
   ],
   templateUrl: "./news-post-list.component.html",
   styleUrl: "./news-post-list.component.less",
@@ -70,8 +75,10 @@ export class NewsPostListComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         tap((newPosts) => {
-          const currentPosts = this.postsSubject.getValue();
-          this.postsSubject.next([...currentPosts, ...newPosts]);
+          this.postsSubject.next([
+            ...this.postsSubject.getValue(),
+            ...newPosts,
+          ]);
         })
       )
       .subscribe();
