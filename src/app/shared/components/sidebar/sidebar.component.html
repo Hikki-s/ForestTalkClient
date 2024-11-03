@@ -1,12 +1,12 @@
 <div tuiCardLarge tuiSurface="elevated">
-    @for (field of fields; track $index) {
-        <a tuiLink [routerLink]="[field.url]">
-            <div class="sidebar-item">
-                <div class="sidebar-icon-item">
-                    <lucide-angular [img]="field.icon" size="28" strokeWidth="2" />
-                </div>
-                <div class="tui-text_h6">{{field.label}}</div>
-            </div>
-        </a>
-    }
+  @for (field of fields; track $index) {
+  <a tuiLink [routerLink]="[field.url]">
+    <div class="sidebar-item">
+      <div class="sidebar-icon-item">
+        <lucide-angular [img]="field.icon" size="28" strokeWidth="2" />
+      </div>
+      <div class="tui-text_h6">{{ field.label }}</div>
+    </div>
+  </a>
+  }
 </div>
