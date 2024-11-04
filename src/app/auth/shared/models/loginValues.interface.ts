@@ -1,8 +1,10 @@
-export type TUserLoginValues = Readonly<{
+export type TAuthValues = Readonly<{
   email: string;
   password: string;
 }>;
 
-// export type TRegistrationResponse = Readonly<{
-//   message: string;
-// }>;
+export type TTokenResponse = {
+  accessToken: string;
+  refreshToken: string;
+};
+

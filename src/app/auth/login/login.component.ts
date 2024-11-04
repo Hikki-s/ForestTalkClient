@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {
   FormControl,
@@ -13,7 +13,6 @@ import {
   TuiInputPasswordModule,
   TuiTextareaModule,
 } from "@taiga-ui/kit";
-import { TUserLoginValues } from "../shared/models/loginValues.interface";
 import { hashPassword } from "@shared/helpers/hash-password";
 import {
   TuiButtonModule,
@@ -23,7 +22,10 @@ import {
   TuiTextfieldControllerModule,
 } from "@taiga-ui/core";
 import { emailValidator } from "@shared/validators/email/email.validator";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { finalize } from "rxjs";
+import { AuthService } from "../shared/services/auth/auth.service";
+import type { TAuthValues } from "../shared/models/loginValues.interface";
 
 @Component({
   selector: "app-login",
@@ -44,7 +46,7 @@ import { RouterLink } from "@angular/router";
   ],
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.less",
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+
   providers: [
     {
       provide: TUI_VALIDATION_ERRORS,
@@ -57,6 +59,8 @@ import { RouterLink } from "@angular/router";
 })
 export class LoginComponent {
   readonly loading = signal(false);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   readonly loginForm = new FormGroup({
     email: new FormControl<string>("", {
@@ -70,12 +74,28 @@ export class LoginComponent {
   });
 
   onSubmit() {
-    // this.loading.set(true);
-    // this.loginForm.disable();
-
-    const formData: TUserLoginValues = {
+    this.loading.set(true);
+    this.loginForm.disable();
+    const formData: TAuthValues = {
       email: this.loginForm.controls.email.value,
       password: hashPassword(this.loginForm.controls.password.value),
     };
+    this.authService
+      .login(formData)
+      .pipe(
+        finalize(() => {
+          this.loading.set(false);
+          this.loginForm.enable();
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          console.log("Вход выполнен успешно", response);
+          this.router.navigate(["/feed"]);
+        },
+        error: (error) => {
+          console.error("Ошибка входа", error);
+        },
+      });
   }
 }

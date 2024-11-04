@@ -7,7 +7,7 @@ export const notAuthenticatedRouteGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (!authService.getAuthedUser()?.role) {
+  if (!authService.isAuth) {
     return true;
   }
 
