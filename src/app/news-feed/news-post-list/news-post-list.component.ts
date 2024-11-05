@@ -1,10 +1,16 @@
 import type { OnInit, OnDestroy } from "@angular/core";
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  ChangeDetectorRef,
+} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { BehaviorSubject, map, Subject, takeUntil, tap } from "rxjs";
+import { BehaviorSubject, Subject, takeUntil, tap } from "rxjs";
 import {
   TuiCardModule,
   TuiHeaderModule,
+  TuiIconModule,
   TuiSurfaceModule,
   TuiTitleModule,
 } from "@taiga-ui/experimental";
@@ -22,6 +28,7 @@ import {
   TuiScrollbarModule,
   tuiScrollbarOptionsProvider,
 } from "@taiga-ui/core";
+import { Heart, LucideAngularModule, MessageSquare } from "lucide-angular";
 import { NewsFeedService } from "../shared/services/feed/news-feed.service";
 
 @Component({
@@ -42,6 +49,8 @@ import { NewsFeedService } from "../shared/services/feed/news-feed.service";
     TuiCarouselModule,
     TuiButtonModule,
     TuiPaginationModule,
+    TuiIconModule,
+    LucideAngularModule,
   ],
   templateUrl: "./news-post-list.component.html",
   styleUrl: "./news-post-list.component.less",
@@ -56,11 +65,15 @@ export class NewsPostListComponent implements OnInit, OnDestroy {
   private readonly offset = 0;
   private readonly limit = 1;
   private readonly newsFeedService = inject(NewsFeedService);
+  private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroy$ = new Subject<void>();
 
   private readonly postsSubject = new BehaviorSubject<NewsPost[]>([]);
   posts$ = this.postsSubject.asObservable();
 
+  protected readonly Heart = Heart;
+
+  protected readonly MessageSquare = MessageSquare;
   onScroll() {
     this.loadPosts();
   }
@@ -82,6 +95,11 @@ export class NewsPostListComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  likePost(post: NewsPost) {
+    post.isLike = !post.isLike;
+    this.cdr.markForCheck();
   }
 
   ngOnDestroy() {
