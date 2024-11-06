@@ -4,7 +4,6 @@ import type { Observable } from "rxjs";
 import { tap } from "rxjs";
 import { API_URLS } from "@shared/constants/api-urls";
 import { StorageService } from "@shared/services/storage/storage.service";
-import { Router } from "@angular/router";
 import type {
   TTokenResponse,
   TAuthValues,
@@ -15,7 +14,6 @@ import type {
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
-  private readonly router = inject(Router);
   private readonly storageService = inject(StorageService);
 
   private readonly accessTokenKey = "access_token";
@@ -23,6 +21,17 @@ export class AuthService {
 
   accessToken: string | null = null;
   refreshToken: string | null = null;
+
+  constructor() {
+    this.initializeToken();
+  }
+
+  private initializeToken(): void {
+    this.accessToken = this.storageService.getItem<string>(this.accessTokenKey);
+    this.refreshToken = this.storageService.getItem<string>(
+      this.refreshTokenKey
+    );
+  }
 
   private storeTokens(accessToken: string, refreshToken: string): void {
     this.accessToken = accessToken;
@@ -32,12 +41,6 @@ export class AuthService {
   }
 
   get isAuth() {
-    if (!this.accessToken) {
-      this.accessToken = this.storageService.getItem<string>(
-        this.accessTokenKey
-      );
-      this.refreshToken = this.storageService.getItem(this.refreshTokenKey);
-    }
     return !!this.accessToken;
   }
 
@@ -55,11 +58,17 @@ export class AuthService {
       Authorization: `Bearer ${this.refreshToken}`,
     });
     return this.http
-      .post<TTokenResponse>(API_URLS.AUTH_REFRESH, {}, { headers })
+      .post<TTokenResponse>(
+        API_URLS.AUTH_REFRESH,
+        { refresh_token: this.refreshToken },
+        { headers }
+      )
       .pipe(tap((res) => this.storeTokens(res.accessToken, res.refreshToken)));
   }
 
   deleteTokens() {
+    this.accessToken = null;
+    this.refreshToken = null;
     this.storageService.removeItem(this.accessTokenKey);
     this.storageService.removeItem(this.refreshTokenKey);
   }
@@ -68,13 +77,12 @@ export class AuthService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.refreshToken}`,
     });
-    return this.http.post<void>(API_URLS.AUTH_LOGOUT, {}, { headers }).pipe(
-      tap(() => {
-        this.accessToken = null;
-        this.refreshToken = null;
-        this.deleteTokens();
-        this.router.navigate(["/login"]);
-      })
-    );
+    return this.http
+      .post<void>(
+        API_URLS.AUTH_LOGOUT,
+        { refresh_token: this.refreshToken },
+        { headers }
+      )
+      .pipe(tap(() => this.deleteTokens()));
   }
 }

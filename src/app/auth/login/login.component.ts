@@ -24,6 +24,7 @@ import {
 import { emailValidator } from "@shared/validators/email/email.validator";
 import { Router, RouterLink } from "@angular/router";
 import { finalize } from "rxjs";
+import { Logger } from "@shared/lib/logger/logger";
 import { AuthService } from "../shared/services/auth/auth.service";
 import type { TAuthValues } from "../shared/models/loginValues.interface";
 
@@ -89,12 +90,11 @@ export class LoginComponent {
         })
       )
       .subscribe({
-        next: (response) => {
-          console.log("Вход выполнен успешно", response);
+        next: () => {
           this.router.navigate(["/feed"]);
         },
-        error: (error) => {
-          console.error("Ошибка входа", error);
+        error: () => {
+          Logger.api.error("Произошла ошибка");
         },
       });
   }

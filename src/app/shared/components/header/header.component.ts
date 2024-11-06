@@ -26,6 +26,7 @@ import {
 import { TuiActiveZoneModule, TuiObscuredModule } from "@taiga-ui/cdk";
 import { Router, RouterLink } from "@angular/router";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { Logger } from "@shared/lib/logger/logger";
 import { AuthService } from "../../../auth/shared/services/auth/auth.service";
 
 @Component({
@@ -102,7 +103,16 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    this.authService.logout();
-    this.toggleDropdown();
+    this.authService
+      .logout()
+
+      .subscribe({
+        next: () => {
+          this.router.navigate(["/login"]);
+        },
+        error: () => {
+          Logger.api.error("Произошла ошибка");
+        },
+      });
   }
 }
