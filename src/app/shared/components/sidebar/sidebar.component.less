@@ -43,3 +43,51 @@
     height: 1.75rem;
   }
 }
+
+.tabs {
+  display: none;
+}
+
+@media (max-width: 1220px) {
+  .pc-sidebar {
+    border-radius: 0.75rem !important;
+  }
+
+  .sidebar-item {
+    --tui-font-heading-6: bold 1rem / 1.5rem var(--tui-font-heading);
+    padding: 0;
+    border-radius: 5px !important;
+
+    &:hover {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  [tuiLink] {
+    &:hover {
+      color: rgb(45, 51, 98);
+    }
+  }
+
+  [tuiCardLarge][data-space][data-space="normal"] {
+    padding: 0.625rem;
+    margin-left: -0.625rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pc-sidebar {
+    display: none !important;
+  }
+
+  .tabs {
+    --tui-link: rgba(252, 92, 56, 1);
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    width: 100%;
+    margin-left: -0.625rem;
+  }
+}

@@ -3,7 +3,7 @@
     <app-news-post-list />
   </div>
 
-  <div tuiCardLarge tuiSurface="elevated">
+  <div tuiCardLarge tuiSurface="elevated" class="news-feed-sidebar">
     @for (section of sections; track $index) {
     <a tuiLink [routerLink]="[section.url]" [queryParams]="section.queryParams">
       <div

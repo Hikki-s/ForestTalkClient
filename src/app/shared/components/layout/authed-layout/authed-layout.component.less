@@ -43,3 +43,45 @@ router-outlet {
 .router-outlet-container {
   flex-grow: 1;
 }
+
+@media (max-width: 1220px) {
+  .sidebar {
+    min-width: 10.625rem;
+  }
+
+  .app-main-container,
+  .app-header-container {
+    padding: 0 1.25rem 0 1.875rem;
+  }
+
+  .header-container {
+    height: 3.375rem;
+    border-radius: 0 0 0.75rem 0.75rem;
+    margin-bottom: 0.9375rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container,
+  .header-container {
+    min-width: 100%;
+  }
+
+  .header-container {
+    height: 3.375rem;
+    border-radius: 0 0 0.75rem 0.75rem;
+  }
+
+  .app-main-container,
+  .app-header-container {
+    padding: 0 0.625rem;
+  }
+
+  .sidebar {
+    min-width: 0;
+  }
+
+  .app-main-container {
+    gap: 0;
+  }
+}

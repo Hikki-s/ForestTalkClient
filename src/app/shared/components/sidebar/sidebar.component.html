@@ -1,5 +1,5 @@
-<div tuiCardLarge tuiSurface="elevated">
-  @for (field of fields; track $index) {
+<div tuiCardLarge tuiSurface="elevated" class="pc-sidebar">
+  @for (field of pcFields; track $index) {
   <a tuiLink [routerLink]="[field.url]">
     <div class="sidebar-item">
       <div class="sidebar-icon-item">
@@ -10,3 +10,17 @@
   </a>
   }
 </div>
+
+<nav tuiTabBar class="tabs" ngProjectAs="tuiOverContent">
+  @for (field of mobileFields; track $index) {
+  <a
+    tuiTabBarItem
+    routerLinkActive
+    [routerLink]="[field.url]"
+    [icon]="field.icon"
+    class="tabs-item"
+  >
+    {{ field.label }}
+  </a>
+  }
+</nav>
