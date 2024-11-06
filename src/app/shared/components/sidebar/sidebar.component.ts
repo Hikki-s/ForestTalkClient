@@ -4,7 +4,11 @@ import { TuiCardModule, TuiSurfaceModule } from "@taiga-ui/experimental";
 import { LucideAngularModule } from "lucide-angular";
 import { RouterLink } from "@angular/router";
 import { TuiLinkModule } from "@taiga-ui/core";
-import { SIDEBAR_SECTIONS } from "@shared/constants/sidebarConstants";
+import {
+  SIDEBAR_PC_SECTIONS,
+  SIDEBAR_MOBILE_SECTIONS,
+} from "@shared/constants/sidebarConstants";
+import { TuiTabBarModule } from "@taiga-ui/addon-mobile";
 
 @Component({
   selector: "app-sidebar",
@@ -16,11 +20,13 @@ import { SIDEBAR_SECTIONS } from "@shared/constants/sidebarConstants";
     LucideAngularModule,
     RouterLink,
     TuiLinkModule,
+    TuiTabBarModule,
   ],
   templateUrl: "./sidebar.component.html",
   styleUrl: "./sidebar.component.less",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
-  protected readonly fields = SIDEBAR_SECTIONS;
+  protected readonly pcFields = SIDEBAR_PC_SECTIONS;
+  protected readonly mobileFields = SIDEBAR_MOBILE_SECTIONS;
 }

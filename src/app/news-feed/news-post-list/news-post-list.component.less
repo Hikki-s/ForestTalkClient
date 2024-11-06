@@ -185,11 +185,68 @@
 
   50% {
     transform: scale(@pulse-scale);
-    box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1); // Обновлённая тень
+    box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
   }
 
   100% {
     transform: scale(1);
     box-shadow: 0 0 0 rgba(@like-color, 0);
+  }
+}
+
+@media (max-width: 1220px) {
+  .content {
+    display: flex;
+    padding-top: 0.9375rem;
+    padding-bottom: 0.9375rem;
+    padding-right: 0;
+    flex-direction: column;
+    gap: 0.9375rem;
+  }
+
+  .post-container {
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.75rem;
+    gap: 5px !important;
+  }
+
+  .carousel-button {
+    display: none;
+  }
+
+  .media-container {
+    border-radius: 0.75rem;
+  }
+
+  .carousel {
+    border-radius: 0.75rem;
+  }
+
+  .media-item {
+    border-radius: 0.75rem;
+  }
+
+  .carousel-container {
+    border-radius: 0.75rem;
+  }
+
+  .footer-container {
+    margin-top: 0.375rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding-bottom: 4.6875rem;
+  }
+
+  [tuiHeader] {
+    --tui-font-heading-5: bold 1.3rem / 1.6rem var(--tui-font-heading);
+    --tui-font-text-m: normal 0.8rem / 1rem var(--tui-font-text);
+    height: 3rem !important;
+  }
+
+  .tui-text_body-l {
+    --tui-font-text-l: normal 0.9625rem / 1.55rem var(--tui-font-text);
   }
 }

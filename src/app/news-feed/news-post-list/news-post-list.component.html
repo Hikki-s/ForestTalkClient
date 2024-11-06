@@ -1,7 +1,7 @@
-<tui-scrollbar class="scroll-bar">
+<tui-scrollbar class="scroll-bar" [hidden]="true">
   <div class="content">
     @for (post of posts$ | async; track post.id) {
-    <div tuiCardLarge tuiSurface="elevated">
+    <div tuiCardLarge tuiSurface="elevated" class="post-container">
       <div class="header-container">
         <div tuiHeader [routerLink]="post.owner | ownerLink">
           <tui-avatar
