@@ -58,11 +58,7 @@ export class AuthService {
       Authorization: `Bearer ${this.refreshToken}`,
     });
     return this.http
-      .post<TTokenResponse>(
-        API_URLS.AUTH_REFRESH,
-        { refresh_token: this.refreshToken },
-        { headers }
-      )
+      .post<TTokenResponse>(API_URLS.AUTH_REFRESH, {}, { headers })
       .pipe(tap((res) => this.storeTokens(res.accessToken, res.refreshToken)));
   }
 
@@ -78,11 +74,7 @@ export class AuthService {
       Authorization: `Bearer ${this.refreshToken}`,
     });
     return this.http
-      .post<void>(
-        API_URLS.AUTH_LOGOUT,
-        { refresh_token: this.refreshToken },
-        { headers }
-      )
+      .post<void>(API_URLS.AUTH_LOGOUT, {}, { headers })
       .pipe(tap(() => this.deleteTokens()));
   }
 }
