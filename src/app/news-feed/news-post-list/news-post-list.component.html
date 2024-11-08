@@ -1,7 +1,7 @@
-<tui-scrollbar class="scroll-bar">
+<tui-scrollbar class="scroll-bar" [hidden]="true">
   <div class="content">
     @for (post of posts$ | async; track post.id) {
-    <div tuiCardLarge tuiSurface="elevated">
+    <div tuiCardLarge tuiSurface="elevated" class="post-container">
       <div class="header-container">
         <div tuiHeader [routerLink]="post.owner | ownerLink">
           <tui-avatar
@@ -17,32 +17,91 @@
         </div>
       </div>
       @if (post.content) {
-      <div class="tui-text_body-l">
+      <div
+        class="tui-text_body-l"
+        [routerLink]="[]"
+        [queryParams]="{ post: post.id }"
+        style="cursor: pointer"
+      >
         {{ post.content }}
       </div>
-      } @if (post.postMedia?.length) { @if (post.postMedia?.length !== 1) {
-      <button
-        icon="tuiIconChevronLeftLarge"
-        title="Previous"
-        tuiIconButton
-        type="button"
-        (click)="carousel.prev()"
-      ></button>
-      }
-      <tui-carousel #carousel class="carousel">
-        @for (media of post.postMedia; track $index) {
-        <img *tuiItem src="{{ media.url }}" alt="" class="media-item" />
+      } @if (post.postMedia?.length) {
+      <div class="carousel-container">
+        @if (post.postMedia?.length !== 1) {
+        <button
+          icon="tuiIconChevronLeftLarge"
+          title="Previous"
+          tuiIconButton
+          type="button"
+          (click)="carousel.prev()"
+          class="carousel-button left-button"
+        ></button>
         }
-      </tui-carousel>
+        <tui-carousel #carousel class="carousel" [(index)]="post.mediaIndex">
+          @for (media of post.postMedia; track $index) {
+          <div
+            *tuiItem
+            [routerLink]="[]"
+            [queryParams]="{ post: post.id }"
+            class="media-container"
+            [style.background]="
+              'url(' + media.url + ') no-repeat center center / cover'
+            "
+          >
+            <img src="{{ media.url }}" alt="" class="media-item" />
+          </div>
+          }
+        </tui-carousel>
+        @if (post.postMedia?.length !== 1) {
+        <button
+          icon="tuiIconChevronRightLarge"
+          title="Next"
+          tuiIconButton
+          type="button"
+          (click)="carousel.next()"
+          class="carousel-button right-button"
+        ></button>
+        }
+      </div>
       @if (post.postMedia?.length !== 1) {
-      <button
-        icon="tuiIconChevronRightLarge"
-        title="Next"
-        tuiIconButton
-        type="button"
-        (click)="carousel.next()"
-      ></button>
+      <tui-pagination
+        size="s"
+        class="pagination"
+        [length]="post.postMedia?.length || 0"
+        [(index)]="post.mediaIndex"
+      ></tui-pagination>
       } }
+      <footer class="footer-container">
+        <div
+          class="footer-item"
+          [ngClass]="{ isLike: post.isLike }"
+          (click)="likePost(post)"
+        >
+          <lucide-angular
+            [img]="Heart"
+            [size]="post.isLike ? 16 : 24"
+            [strokeWidth]="post.isLike ? 4 : 2"
+            class="like-icon"
+            [ngClass]="{ isLike: post.isLike }"
+          ></lucide-angular>
+          <div [ngClass]="{ isLike: post.isLike }" class="tui-text_body-l">
+            {{ post.commentCount }}
+          </div>
+        </div>
+        <div
+          class="footer-item"
+          [routerLink]="[]"
+          [queryParams]="{ post: post.id }"
+        >
+          <lucide-angular
+            class="like-icon"
+            [img]="MessageSquare"
+            size="24"
+            strokeWidth="2"
+          />
+          <div class="tui-text_body-l">{{ post.commentCount }}</div>
+        </div>
+      </footer>
     </div>
     }
   </div>

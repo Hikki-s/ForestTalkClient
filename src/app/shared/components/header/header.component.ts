@@ -16,6 +16,7 @@ import {
   Bell,
   LogOut,
   Settings,
+  Search,
 } from "lucide-angular";
 import { TuiInputModule } from "@taiga-ui/kit";
 import {
@@ -70,6 +71,7 @@ export class HeaderComponent {
   isDropdownOpen = false;
   searchControl = new FormControl("");
 
+  protected readonly Search = Search;
   onObscured(obscured: boolean): void {
     if (obscured) {
       this.isDropdownOpen = false;

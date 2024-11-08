@@ -1,6 +1,7 @@
 export interface NewsPost {
   id: string;
   content: string;
+  mediaIndex: number;
   postMedia?: PostMedia[];
   owner: PostOwner;
   isLike: boolean;

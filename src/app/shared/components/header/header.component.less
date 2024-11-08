@@ -1,3 +1,8 @@
+@primary-color: rgba(252, 92, 56, 0.8);
+@hover-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
+@icon-color: rgba(27, 31, 59, 0.5);
+@hover-icon-color: rgba(27, 31, 59, 0.8);
+
 header {
   display: flex;
   align-items: center;
@@ -23,14 +28,15 @@ header {
     }
 
     .input {
-      --tui-primary: rgba(252, 92, 56, 0.8);
+      --tui-primary: @primary-color;
       width: 17.5rem;
       margin-left: 1.25rem;
     }
 
+    .search,
     .bell {
-      display: flex;
-      color: rgba(27, 31, 59, 0.5);
+      display: none;
+      color: @icon-color;
       aspect-ratio: 1 / 1;
       height: 140%;
       justify-content: center;
@@ -38,15 +44,19 @@ header {
       border-radius: 50%;
       transition: background-color 0.5s ease, box-shadow 0.5s ease;
 
+      &:hover {
+        background-color: @primary-color;
+        box-shadow: @hover-shadow;
+        color: @hover-icon-color;
+      }
+
       lucide-angular {
         height: 1.75rem;
       }
+    }
 
-      &:hover {
-        background-color: rgba(252, 92, 56, 0.8);
-        box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
-        color: rgba(27, 31, 59, 0.8);
-      }
+    .bell {
+      display: flex;
     }
   }
 
@@ -74,28 +84,21 @@ header {
 
     .chevron-down {
       height: 1.25rem;
-      color: rgba(27, 31, 59, 0.5);
+      color: @icon-color;
       aspect-ratio: 1 / 1;
       margin-right: 0.6875rem;
       transition: color 0.5s ease;
-    }
 
-    &:hover {
-      background-color: rgba(252, 92, 56, 0.8);
-      box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
-
-      .chevron-down {
-        color: rgba(27, 31, 59, 0.8);
+      .mini-profile-container:hover &,
+      &.hover {
+        color: @hover-icon-color;
       }
     }
 
+    &:hover,
     &.hover {
-      background-color: rgba(252, 92, 56, 0.8);
-      box-shadow: 0 0 1.125rem rgba(252, 92, 56, 1);
-
-      .chevron-down {
-        color: rgba(27, 31, 59, 0.8);
-      }
+      background-color: @primary-color;
+      box-shadow: @hover-shadow;
     }
   }
 }
@@ -107,8 +110,14 @@ header {
   gap: 0.9375rem;
   padding: 1.25rem;
 
-  .dropdown-action {
+  .dropdown-action,
+  .mini-profile {
     display: flex;
+    align-items: center;
+    gap: 0.9375rem;
+  }
+
+  .dropdown-action {
     cursor: pointer;
     height: 1.875rem;
     font-size: 1rem;
@@ -116,19 +125,13 @@ header {
     line-height: 1.36625rem;
     text-align: left;
     color: #191c30;
-    align-items: center;
-    gap: 0.9375rem;
   }
 
   .mini-profile {
-    display: flex;
     height: 3.75rem;
-    align-items: center;
-    gap: 0.9375rem;
   }
 
   .avatar {
-    display: flex;
     height: 100%;
     aspect-ratio: 1 / 1;
     object-fit: contain;
@@ -139,11 +142,7 @@ header {
     align-items: center;
   }
 
-  .log-out {
-    height: 1.5625rem;
-    color: rgba(67, 112, 146, 1);
-  }
-
+  .log-out,
   .settings {
     height: 1.5625rem;
     color: rgba(67, 112, 146, 1);
@@ -153,4 +152,59 @@ header {
 tui-dropdown[data-appearance="round"] {
   z-index: 1;
   border-radius: 1.875rem;
+}
+
+@media (max-width: 1220px) {
+  header {
+    height: 1.625rem;
+  }
+
+  .header-left {
+    width: 100%;
+    gap: 0.625rem !important;
+  }
+
+  .bell {
+    &:hover {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      color: @icon-color !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .mini-profile-container {
+    display: none !important;
+  }
+
+  header {
+    height: 1.625rem;
+  }
+
+  .header-left {
+    width: 100%;
+    gap: 0.625rem !important;
+  }
+
+  .input {
+    display: none !important;
+  }
+
+  .search {
+    display: flex !important;
+    margin-left: auto;
+
+    &:hover {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      color: @icon-color !important;
+    }
+  }
+
+  [tuiHeader] {
+    --tui-font-heading-5: bold 1.3rem / 1.6rem var(--tui-font-heading);
+    --tui-font-text-m: normal 0.8rem / 1rem var(--tui-font-text);
+    height: 3rem !important;
+  }
 }

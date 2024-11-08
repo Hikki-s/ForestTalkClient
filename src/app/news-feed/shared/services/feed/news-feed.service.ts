@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { catchError, of } from "rxjs";
+import { catchError, map, of } from "rxjs";
 import { Logger } from "@shared/lib/logger/logger";
 import { API_URLS } from "@shared/constants/api-urls";
 import type { NewsPost } from "@shared/models/post.model";
@@ -18,6 +18,9 @@ export class NewsFeedService {
         // .get<NewsPost[]>(API_URLS.GET_FEED)
         .get<NewsPost[]>(API_URLS.GET_FEED, { params })
         .pipe(
+          map((newPosts) =>
+            newPosts.map((post) => ({ ...post, mediaIndex: 0 }))
+          ),
           catchError((error) => {
             Logger.api.error(`Error fetching posts: ${error}`);
             return of([]);
