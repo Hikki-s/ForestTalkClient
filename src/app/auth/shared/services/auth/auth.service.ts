@@ -4,6 +4,7 @@ import type { Observable } from "rxjs";
 import { tap } from "rxjs";
 import { API_URLS } from "@shared/constants/api-urls";
 import { StorageService } from "@shared/services/storage/storage.service";
+import { Router } from "@angular/router";
 import type {
   TTokenResponse,
   TAuthValues,
@@ -15,6 +16,7 @@ import type {
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly storageService = inject(StorageService);
+  private readonly router = inject(Router);
 
   private readonly accessTokenKey = "access_token";
   private readonly refreshTokenKey = "refresh_token";
@@ -67,6 +69,7 @@ export class AuthService {
     this.refreshToken = null;
     this.storageService.removeItem(this.accessTokenKey);
     this.storageService.removeItem(this.refreshTokenKey);
+    this.router.navigate(["/login"]);
   }
 
   logout(): Observable<void> {

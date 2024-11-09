@@ -43,7 +43,7 @@ const refreshTokenAndProceed = (
         isRefreshing = false;
         Logger.api.error("Произошла ошибка обновления токена");
         refreshSubscribers = [];
-        authService.logout();
+        authService.deleteTokens();
         return throwError(() => error);
       })
     );

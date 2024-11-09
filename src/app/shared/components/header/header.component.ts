@@ -114,6 +114,7 @@ export class HeaderComponent {
         },
         error: () => {
           Logger.api.error("Произошла ошибка");
+          this.authService.deleteTokens();
         },
       });
   }
