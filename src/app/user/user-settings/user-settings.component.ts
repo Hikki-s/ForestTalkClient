@@ -41,11 +41,18 @@ export class UserSettingsComponent {
   selectedSection = this.sections[0].name;
 
   selectSection(section: { name: string; label: string }) {
-    this.selectedSection = section.name;
+    // Блокируем временно переход для "education" и "interests"
+    if (section.name !== "education" && section.name !== "interests") {
+      this.selectedSection = section.name;
+    }
   }
 
   getSelectedSectionLabel(): string {
     const section = this.sections.find((s) => s.name === this.selectedSection);
     return section ? section.label : "";
+  }
+
+  isDisabledSection(sectionName: string): boolean {
+    return sectionName === "education" || sectionName === "interests";
   }
 }
