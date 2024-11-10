@@ -4,11 +4,12 @@ import type { ApplicationConfig } from "@angular/core";
 import { importProvidersFrom } from "@angular/core";
 import { provideZoneChangeDetection } from "@angular/core";
 import { provideRouter } from "@angular/router";
-import { provideHttpClient } from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { TuiRootModule } from "@taiga-ui/core";
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from "@taiga-ui/i18n";
 import { of } from "rxjs";
 import { appRoutes } from "./app.routes";
+import { authInterceptor } from "./auth/shared/interceptors/auth/auth.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     NG_EVENT_PLUGINS,
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom(TuiRootModule),
     {
       provide: TUI_LANGUAGE,

@@ -1,1 +1,53 @@
-<p class="tui-text_h1">login works!</p>
+<form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <h3 class="tui-text_h3 heading">Вход</h3>
+
+  <div>
+    <tui-input
+      formControlName="email"
+      [tuiTextfieldCleaner]="true"
+      tuiTextfieldSize="m"
+    >
+      Адрес электронной почты
+      <span class="tui-required"></span>
+      <input
+        autocomplete="email"
+        placeholder="mail@mail.ru"
+        tuiTextfield
+        type="email"
+      />
+    </tui-input>
+    <tui-error
+      formControlName="email"
+      [error]="[] | tuiFieldError | async"
+    ></tui-error>
+  </div>
+
+  <div>
+    <tui-input-password formControlName="password" tuiTextfieldSize="m">
+      Введите пароль
+      <span class="tui-required"></span>
+      <input placeholder="••••••••••" tuiTextfield type="password" />
+    </tui-input-password>
+    <tui-error
+      formControlName="password"
+      [error]="[] | tuiFieldError | async"
+    ></tui-error>
+  </div>
+
+  <button
+    size="m"
+    appearance="accent"
+    tuiButton
+    type="submit"
+    [showLoader]="loading()"
+    [disabled]="!loginForm.valid"
+  >
+    Войти
+  </button>
+</form>
+
+<div tuiMode="onDark" class="links">
+  <a routerLink="/reset-password" tuiLink> Забыли пароль? </a>
+
+  <a routerLink="/register" tuiLink> Регистрация </a>
+</div>

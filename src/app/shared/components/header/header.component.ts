@@ -27,6 +27,8 @@ import {
 import { TuiActiveZoneModule, TuiObscuredModule } from "@taiga-ui/cdk";
 import { Router, RouterLink } from "@angular/router";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { Logger } from "@shared/lib/logger/logger";
+import { AuthService } from "../../../auth/shared/services/auth/auth.service";
 
 @Component({
   selector: "app-header",
@@ -62,6 +64,7 @@ export class HeaderComponent {
 
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
   @ViewChild("searchInput", { read: ElementRef }) inputRef!: ElementRef;
 
@@ -99,5 +102,20 @@ export class HeaderComponent {
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
     this.cdr.markForCheck();
+  }
+
+  logout(): void {
+    this.authService
+      .logout()
+
+      .subscribe({
+        next: () => {
+          this.router.navigate(["/login"]);
+        },
+        error: () => {
+          Logger.api.error("Произошла ошибка");
+          this.authService.deleteTokens();
+        },
+      });
   }
 }
